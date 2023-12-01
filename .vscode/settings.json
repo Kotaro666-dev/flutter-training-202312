@@ -5,5 +5,14 @@
   },
   "files.watcherExclude": {
     "**/.fvm": true
+  },
+
+  // GitHub Copilot をワークスペースで有効化する設定
+  "github.copilot.inlineSuggest.enable": true,
+  // Dart だけを有効化する設定
+  "github.copilot.enable": {
+    "*": false,
+    "dart": true 
+  },
   }
 }
