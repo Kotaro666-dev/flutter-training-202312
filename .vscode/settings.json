@@ -14,5 +14,7 @@
     "*": false,
     "dart": true 
   },
+
+  "files.insertFinalNewline": true,
   }
 }
