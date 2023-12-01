@@ -16,5 +16,8 @@
   },
 
   "files.insertFinalNewline": true,
+
+  "[dart]": {
+    "editor.formatOnSave": true,
   }
 }
