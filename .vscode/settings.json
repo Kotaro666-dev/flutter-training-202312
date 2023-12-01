@@ -5,5 +5,32 @@
   },
   "files.watcherExclude": {
     "**/.fvm": true
+  },
+
+  // GitHub Copilot をワークスペースで有効化する設定
+  "github.copilot.inlineSuggest.enable": true,
+  // Dart だけを有効化する設定
+  "github.copilot.enable": {
+    "*": false,
+    "dart": true 
+  },
+
+  "files.insertFinalNewline": true,
+
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.codeActionsOnSave": {
+      "quickfix.insertSemicolon": true,
+      "source.organizeImports": true,
+    },
+    "editor.rulers": [
+      80
+    ],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": false
   }
 }
