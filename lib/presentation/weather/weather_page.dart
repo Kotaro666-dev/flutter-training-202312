@@ -29,7 +29,10 @@ class _Body extends StatelessWidget {
             Spacer(),
 
             // Middle（本ウィジェットが画面の中央に位置する）
-            WeatherTemperatureDisplay(),
+            WeatherTemperatureDisplay(
+              minTemperature: 10,
+              maxTemperature: 20,
+            ),
 
             // Bottom
             Expanded(

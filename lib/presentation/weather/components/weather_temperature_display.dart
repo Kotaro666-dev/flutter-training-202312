@@ -1,31 +1,42 @@
 import 'package:flutter/material.dart';
 
 class WeatherTemperatureDisplay extends StatelessWidget {
-  const WeatherTemperatureDisplay({super.key});
+  const WeatherTemperatureDisplay({
+    required this.minTemperature,
+    required this.maxTemperature,
+    super.key,
+  });
+
+  final int minTemperature;
+  final int maxTemperature;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        AspectRatio(
+        const AspectRatio(
           aspectRatio: 1,
+          // TODO: 天気画像を表示する
           child: Placeholder(),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                '** ℃',
-                textAlign: TextAlign.center,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Row(
+            children: [
+              Expanded(
+                child: TemperatureLabel(
+                  temperature: minTemperature,
+                  fontColor: Colors.blue,
+                ),
               ),
-            ),
-            Expanded(
-              child: Text(
-                '** ℃',
-                textAlign: TextAlign.center,
+              Expanded(
+                child: TemperatureLabel(
+                  temperature: maxTemperature,
+                  fontColor: Colors.red,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
