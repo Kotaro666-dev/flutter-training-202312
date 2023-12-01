@@ -23,5 +23,8 @@
       "quickfix.insertSemicolon": true,
       "source.organizeImports": true,
     },
+    "editor.rulers": [
+      80
+    ],
   }
 }
