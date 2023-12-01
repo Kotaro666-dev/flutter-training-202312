@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
+import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
@@ -27,7 +29,7 @@ class _Body extends StatelessWidget {
             Spacer(),
 
             // Middle（本ウィジェットが画面の中央に位置する）
-            WeatherAndTemperatures(),
+            WeatherTemperatureDisplay(),
 
             // Bottom
             Expanded(
@@ -43,63 +45,6 @@ class _Body extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class WeatherAndTemperatures extends StatelessWidget {
-  const WeatherAndTemperatures({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        AspectRatio(
-          aspectRatio: 1,
-          child: Placeholder(),
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                '** ℃',
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Expanded(
-              child: Text(
-                '** ℃',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class ActionButtons extends StatelessWidget {
-  const ActionButtons({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Flexible(
-          child: TextButton(
-            onPressed: () {},
-            child: const Text('Close'),
-          ),
-        ),
-        Flexible(
-          child: TextButton(
-            onPressed: () {},
-            child: const Text('Reload'),
-          ),
-        ),
-      ],
     );
   }
 }
