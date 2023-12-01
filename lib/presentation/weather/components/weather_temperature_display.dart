@@ -31,3 +31,28 @@ class WeatherTemperatureDisplay extends StatelessWidget {
     );
   }
 }
+
+class TemperatureLabel extends StatelessWidget {
+  const TemperatureLabel({
+    required this.temperature,
+    required this.fontColor,
+    super.key,
+  });
+
+  final int temperature;
+  final Color fontColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textStyle = theme.textTheme.labelLarge?.copyWith(
+          color: fontColor,
+        ) ??
+        TextStyle(color: fontColor);
+    return Text(
+      '$temperature ℃',
+      textAlign: TextAlign.center,
+      style: textStyle,
+    );
+  }
+}
