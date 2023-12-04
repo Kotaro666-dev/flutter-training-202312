@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/core/gen/assets.gen.dart';
-import 'package:flutter_training/presentation/weather/weather.dart';
+import 'package:flutter_training/domain/models/weather.dart';
 
 class WeatherTemperatureDisplay extends StatelessWidget {
   const WeatherTemperatureDisplay({

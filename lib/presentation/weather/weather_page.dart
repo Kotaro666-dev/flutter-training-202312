@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/core/exceptions/exceptions.dart';
+import 'package:flutter_training/domain/models/weather.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
-import 'package:flutter_training/presentation/weather/weather.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherPage extends StatelessWidget {
