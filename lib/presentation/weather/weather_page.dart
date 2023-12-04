@@ -18,7 +18,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: FractionallySizedBox(
         widthFactor: 0.5,
         // Note: 画面を三分割して考えて、Middleの部分が中央に配置されるようにする
@@ -26,10 +26,10 @@ class _Body extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Top
-            Spacer(),
+            const Spacer(),
 
             // Middle（本ウィジェットが画面の中央に位置する）
-            WeatherTemperatureDisplay(
+            const WeatherTemperatureDisplay(
               minTemperature: 10,
               maxTemperature: 20,
             ),
@@ -38,10 +38,14 @@ class _Body extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   ),
-                  ActionButtons(),
+                  ActionButtons(
+                    onReloadButtonPressed: () {
+                      // TOOD: ボタン押下時に天気予報を取得する処理を実行する
+                    },
+                  ),
                 ],
               ),
             ),
