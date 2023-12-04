@@ -23,7 +23,7 @@ class WeatherTemperatureDisplay extends StatelessWidget {
       children: [
         AspectRatio(
           aspectRatio: 1,
-          child: WeatherImage(
+          child: _WeatherImage(
             weather: _weather,
           ),
         ),
@@ -31,13 +31,13 @@ class WeatherTemperatureDisplay extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: TemperatureLabel(
+              child: _TemperatureLabel(
                 temperature: _minTemperature,
                 fontColor: Colors.blue,
               ),
             ),
             Expanded(
-              child: TemperatureLabel(
+              child: _TemperatureLabel(
                 temperature: _maxTemperature,
                 fontColor: Colors.red,
               ),
@@ -50,10 +50,9 @@ class WeatherTemperatureDisplay extends StatelessWidget {
   }
 }
 
-class WeatherImage extends StatelessWidget {
-  const WeatherImage({
+class _WeatherImage extends StatelessWidget {
+  const _WeatherImage({
     required Weather? weather,
-    super.key,
   }) : _weather = weather;
 
   final Weather? _weather;
@@ -78,11 +77,10 @@ extension _WeatherAssetName on Weather {
       };
 }
 
-class TemperatureLabel extends StatelessWidget {
-  const TemperatureLabel({
+class _TemperatureLabel extends StatelessWidget {
+  const _TemperatureLabel({
     required int temperature,
     required Color fontColor,
-    super.key,
   })  : _fontColor = fontColor,
         _temperature = temperature;
 
