@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_training/core/gen/assets.gen.dart';
+import 'package:flutter_training/presentation/weather/weather.dart';
 
 class WeatherTemperatureDisplay extends StatelessWidget {
   const WeatherTemperatureDisplay({
+    required Weather? weather,
     required int minTemperature,
     required int maxTemperature,
     super.key,
-  })  : _maxTemperature = maxTemperature,
-        _minTemperature = minTemperature;
+  })  : _weather = weather,
+        _minTemperature = minTemperature,
+        _maxTemperature = maxTemperature;
 
+  final Weather? _weather;
   final int _minTemperature;
   final int _maxTemperature;
 
@@ -15,10 +21,11 @@ class WeatherTemperatureDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const AspectRatio(
+        AspectRatio(
           aspectRatio: 1,
-          // TODO: 天気画像を表示する
-          child: Placeholder(),
+          child: WeatherImage(
+            weather: _weather,
+          ),
         ),
         const SizedBox(height: 16),
         Row(
@@ -41,6 +48,34 @@ class WeatherTemperatureDisplay extends StatelessWidget {
       ],
     );
   }
+}
+
+class WeatherImage extends StatelessWidget {
+  const WeatherImage({
+    required Weather? weather,
+    super.key,
+  }) : _weather = weather;
+
+  final Weather? _weather;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_weather == null) {
+      return const Placeholder();
+    } else {
+      return SvgPicture.asset(
+        _weather.assetName,
+      );
+    }
+  }
+}
+
+extension _WeatherAssetName on Weather {
+  String get assetName => switch (this) {
+        Weather.sunny => Assets.weather.sunny,
+        Weather.cloudy => Assets.weather.cloudy,
+        Weather.rainy => Assets.weather.rainy,
+      };
 }
 
 class TemperatureLabel extends StatelessWidget {
