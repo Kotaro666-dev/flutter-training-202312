@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/core/exceptions/exceptions.dart';
+import 'package:flutter_training/data/datasources/remote/weather_remote_data_source.dart';
+import 'package:flutter_training/data/repositories/weather_repository_impl.dart';
 import 'package:flutter_training/domain/models/weather.dart';
+import 'package:flutter_training/domain/usecases/get_weather_use_case.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
@@ -24,29 +26,28 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  final _yumemiWeather = YumemiWeather();
+  // TODO: Session8 #9 状態管理を見直す Riverpod 導入時に移行する
+  final _getWeatherUseCase = GetWeatherUseCase(
+    weatherRepository: WeatherRepositoryImpl(
+      weatherRemoteDataSource: WeatherRemoteDataSourceImpl(
+        yumemiWeather: YumemiWeather(),
+      ),
+    ),
+  );
+  // TODO: 他のレスポンスデータも返却される際に UiState で管理するようにする
   Weather? _weather;
 
-  void _onReloadButtonPressed() {
-    final newWeather = _fetchYumemiWeather();
+  Future<void> _onReloadButtonPressed() async {
+    final newWeather = await _fetchWeather();
 
     setState(() {
       _weather = newWeather;
     });
   }
 
-  Weather? _fetchYumemiWeather() {
-    try {
-      final newWeather = _yumemiWeather.fetchSimpleWeather();
-      return Weather.fromName(newWeather);
-    } on UnknownWeatherException catch (e) {
-      debugPrint(e.toString());
-      return null;
-    } on Exception catch (e) {
-      // TODO Session5 #6 API のエラーハンドリングを実装する
-      debugPrint(e.toString());
-      return null;
-    }
+  Future<Weather?> _fetchWeather() {
+    // TODO: Session8 #9 状態管理を見直す Riverpod 導入時に移行する
+    return _getWeatherUseCase.call();
   }
 
   @override
