@@ -20,25 +20,24 @@ class WeatherTemperatureDisplay extends StatelessWidget {
           // TODO: 天気画像を表示する
           child: Placeholder(),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Row(
-            children: [
-              Expanded(
-                child: TemperatureLabel(
-                  temperature: _minTemperature,
-                  fontColor: Colors.blue,
-                ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              child: TemperatureLabel(
+                temperature: _minTemperature,
+                fontColor: Colors.blue,
               ),
-              Expanded(
-                child: TemperatureLabel(
-                  temperature: _maxTemperature,
-                  fontColor: Colors.red,
-                ),
+            ),
+            Expanded(
+              child: TemperatureLabel(
+                temperature: _maxTemperature,
+                fontColor: Colors.red,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+        const SizedBox(height: 16),
       ],
     );
   }
