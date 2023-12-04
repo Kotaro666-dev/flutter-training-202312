@@ -6,15 +6,11 @@ enum Weather {
   rainy;
 
   factory Weather.fromName(String name) {
-    switch (name) {
-      case 'sunny':
-        return Weather.sunny;
-      case 'cloudy':
-        return Weather.cloudy;
-      case 'rainy':
-        return Weather.rainy;
-      default:
-        throw UnknownWeatherException('Unknown weather: $name');
+    for (final value in Weather.values) {
+      if (value.name == name) {
+        return value;
+      }
     }
+    throw UnknownWeatherException('Unknown weather: $name');
   }
 }
