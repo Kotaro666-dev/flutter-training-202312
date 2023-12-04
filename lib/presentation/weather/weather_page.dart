@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/exceptions/exceptions.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
+import 'package:flutter_training/presentation/weather/weather.dart';
+import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
@@ -13,8 +16,38 @@ class WeatherPage extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body();
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  final _yumemiWeather = YumemiWeather();
+  Weather? _weather;
+
+  void _onReloadButtonPressed() {
+    final newWeather = _fetchYumemiWeather();
+
+    setState(() {
+      _weather = newWeather;
+    });
+  }
+
+  Weather? _fetchYumemiWeather() {
+    try {
+      final newWeather = _yumemiWeather.fetchSimpleWeather();
+      return Weather.fromName(newWeather);
+    } on UnknownWeatherException catch (e) {
+      debugPrint(e.toString());
+      return null;
+    } on Exception catch (e) {
+      // TODO Session5 #6 API のエラーハンドリングを実装する
+      debugPrint(e.toString());
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +62,8 @@ class _Body extends StatelessWidget {
             const Spacer(),
 
             // Middle（本ウィジェットが画面の中央に位置する）
-            const WeatherTemperatureDisplay(
+            WeatherTemperatureDisplay(
+              weather: _weather,
               minTemperature: 10,
               maxTemperature: 20,
             ),
@@ -42,9 +76,7 @@ class _Body extends StatelessWidget {
                     height: 80,
                   ),
                   ActionButtons(
-                    onReloadButtonPressed: () {
-                      // TOOD: ボタン押下時に天気予報を取得する処理を実行する
-                    },
+                    onReloadButtonPressed: _onReloadButtonPressed,
                   ),
                 ],
               ),
