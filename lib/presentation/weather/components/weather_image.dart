@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/core/gen/assets.gen.dart';
 import 'package:flutter_training/domain/models/weather.dart';
 
@@ -16,15 +15,15 @@ class WeatherImage extends StatelessWidget {
     if (_weather == null) {
       return const Placeholder();
     } else {
-      return _weather.svgPicture;
+      return _weather.svgGenImage.svg();
     }
   }
 }
 
-extension _WeatherSvgPicture on Weather {
-  SvgPicture get svgPicture => switch (this) {
-        Weather.sunny => Assets.weather.sunny.svg(),
-        Weather.cloudy => Assets.weather.cloudy.svg(),
-        Weather.rainy => Assets.weather.rainy.svg(),
+extension _WeatherSvgGenImage on Weather {
+  SvgGenImage get svgGenImage => switch (this) {
+        Weather.sunny => Assets.weather.sunny,
+        Weather.cloudy => Assets.weather.cloudy,
+        Weather.rainy => Assets.weather.rainy,
       };
 }
