@@ -21,7 +21,7 @@ class WeatherImage extends StatelessWidget {
   }
 }
 
-extension _WeatherAssetName on Weather {
+extension _WeatherSvgPicture on Weather {
   SvgPicture get svgPicture => switch (this) {
         Weather.sunny => Assets.weather.sunny.svg(),
         Weather.cloudy => Assets.weather.cloudy.svg(),
