@@ -10,6 +10,8 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
 
+  static const routeName = '/weather';
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
