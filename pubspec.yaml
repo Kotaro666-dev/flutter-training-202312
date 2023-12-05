@@ -23,6 +23,15 @@ dev_dependencies:
     sdk: flutter
   yumemi_lints: ^1.1.0
 
+
+# カスタム設定（デフォルト設定: https://github.com/FlutterGen/flutter_gen/blob/main/packages/core/lib/settings/config_default.dart）
+flutter_gen:
+  # Default: lib/gen/
+  output: lib/core/gen
+  integrations:
+    # Usage: Assets.images.icons.paint.svg()
+    flutter_svg: true
+
 flutter:
   uses-material-design: true
 
