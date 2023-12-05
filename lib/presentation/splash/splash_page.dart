@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_training/presentation/weather/weather_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -8,6 +11,28 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    unawaited(_goToWeatherPageAfterFrameCompletes());
+    super.initState();
+  }
+
+  Future<void> _goToWeatherPageAfterFrameCompletes() async {
+    // 画面の描写が完了することを待つ
+    await WidgetsBinding.instance.endOfFrame;
+    // 画面の描写が完了した後に、0.5秒待つ
+    await Future<void>.delayed(
+      const Duration(milliseconds: 500),
+    );
+
+    // When a BuildContext is used,
+    // its mounted property must be checked after an asynchronous gap.
+    if (!context.mounted) {
+      return;
+    }
+    await Navigator.of(context).pushNamed(WeatherPage.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return const DecoratedBox(
