@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/presentation/weather/weather_page.dart';
+import 'package:flutter_training/core/router/go_router_config.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
     }
 
     // 天気画面に遷移して戻ってくることを待つ
-    await Navigator.of(context).pushNamed(WeatherPage.routeName);
+    await const WeatherPageRoute().push<void>(context);
 
     // 天気画面に遷移して、戻ってきたら再度天気画面に遷移する
     unawaited(_goToWeatherPageAfterFrameCompletes());
