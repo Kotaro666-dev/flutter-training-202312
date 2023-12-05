@@ -16,17 +16,15 @@ class WeatherImage extends StatelessWidget {
     if (_weather == null) {
       return const Placeholder();
     } else {
-      return SvgPicture.asset(
-        _weather.assetName,
-      );
+      return _weather.svgPicture;
     }
   }
 }
 
 extension _WeatherAssetName on Weather {
-  String get assetName => switch (this) {
-        Weather.sunny => Assets.weather.sunny,
-        Weather.cloudy => Assets.weather.cloudy,
-        Weather.rainy => Assets.weather.rainy,
+  SvgPicture get svgPicture => switch (this) {
+        Weather.sunny => Assets.weather.sunny.svg(),
+        Weather.cloudy => Assets.weather.cloudy.svg(),
+        Weather.rainy => Assets.weather.rainy.svg(),
       };
 }
