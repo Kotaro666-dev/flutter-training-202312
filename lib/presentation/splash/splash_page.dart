@@ -30,7 +30,12 @@ class _SplashPageState extends State<SplashPage> {
     if (!context.mounted) {
       return;
     }
+
+    // 天気画面に遷移して戻ってくることを待つ
     await Navigator.of(context).pushNamed(WeatherPage.routeName);
+
+    // 天気画面に遷移して、戻ってきたら再度天気画面に遷移する
+    unawaited(_goToWeatherPageAfterFrameCompletes());
   }
 
   @override
