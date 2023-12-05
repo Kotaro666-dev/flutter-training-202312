@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ActionButtons extends StatelessWidget {
-  const ActionButtons({super.key});
+  const ActionButtons({
+    required VoidCallback onReloadButtonPressed,
+    super.key,
+  }) : _onReloadButtonPressed = onReloadButtonPressed;
+
+  final VoidCallback _onReloadButtonPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +23,7 @@ class ActionButtons extends StatelessWidget {
         ),
         Flexible(
           child: TextButton(
-            onPressed: () {
-              // TODO: ボタン押下時に何かする
-            },
+            onPressed: _onReloadButtonPressed,
             child: const Text('Reload'),
           ),
         ),

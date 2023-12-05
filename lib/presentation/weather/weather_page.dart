@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/data/datasources/remote/weather_remote_data_source.dart';
+import 'package:flutter_training/data/repositories/weather_repository_impl.dart';
+import 'package:flutter_training/domain/models/weather.dart';
+import 'package:flutter_training/domain/usecases/get_weather_use_case.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
+import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
@@ -13,12 +18,41 @@ class WeatherPage extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body();
 
   @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  // TODO: Session8 #9 状態管理を見直す Riverpod 導入時に移行する
+  final _getWeatherUseCase = GetWeatherUseCase(
+    weatherRepository: WeatherRepositoryImpl(
+      weatherRemoteDataSource: WeatherRemoteDataSourceImpl(
+        yumemiWeather: YumemiWeather(),
+      ),
+    ),
+  );
+  // TODO: 他のレスポンスデータも返却される際に UiState で管理するようにする
+  Weather? _weather;
+
+  Future<void> _onReloadButtonPressed() async {
+    final newWeather = await _fetchWeather();
+
+    setState(() {
+      _weather = newWeather;
+    });
+  }
+
+  Future<Weather?> _fetchWeather() {
+    // TODO: Session8 #9 状態管理を見直す Riverpod 導入時に移行する
+    return _getWeatherUseCase.call();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: FractionallySizedBox(
         widthFactor: 0.5,
         // Note: 画面を三分割して考えて、Middleの部分が中央に配置されるようにする
@@ -26,10 +60,11 @@ class _Body extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Top
-            Spacer(),
+            const Spacer(),
 
             // Middle（本ウィジェットが画面の中央に位置する）
             WeatherTemperatureDisplay(
+              weather: _weather,
               minTemperature: 10,
               maxTemperature: 20,
             ),
@@ -38,10 +73,12 @@ class _Body extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   ),
-                  ActionButtons(),
+                  ActionButtons(
+                    onReloadButtonPressed: _onReloadButtonPressed,
+                  ),
                 ],
               ),
             ),

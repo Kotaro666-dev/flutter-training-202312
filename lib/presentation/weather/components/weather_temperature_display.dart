@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/domain/models/weather.dart';
+import 'package:flutter_training/presentation/weather/components/weather_image.dart';
 
 class WeatherTemperatureDisplay extends StatelessWidget {
   const WeatherTemperatureDisplay({
+    required Weather? weather,
     required int minTemperature,
     required int maxTemperature,
     super.key,
-  })  : _maxTemperature = maxTemperature,
-        _minTemperature = minTemperature;
+  })  : _weather = weather,
+        _minTemperature = minTemperature,
+        _maxTemperature = maxTemperature;
 
+  final Weather? _weather;
   final int _minTemperature;
   final int _maxTemperature;
 
@@ -15,22 +20,23 @@ class WeatherTemperatureDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const AspectRatio(
+        AspectRatio(
           aspectRatio: 1,
-          // TODO: 天気画像を表示する
-          child: Placeholder(),
+          child: WeatherImage(
+            weather: _weather,
+          ),
         ),
         const SizedBox(height: 16),
         Row(
           children: [
             Expanded(
-              child: TemperatureLabel(
+              child: _TemperatureLabel(
                 temperature: _minTemperature,
                 fontColor: Colors.blue,
               ),
             ),
             Expanded(
-              child: TemperatureLabel(
+              child: _TemperatureLabel(
                 temperature: _maxTemperature,
                 fontColor: Colors.red,
               ),
@@ -43,11 +49,10 @@ class WeatherTemperatureDisplay extends StatelessWidget {
   }
 }
 
-class TemperatureLabel extends StatelessWidget {
-  const TemperatureLabel({
+class _TemperatureLabel extends StatelessWidget {
+  const _TemperatureLabel({
     required int temperature,
     required Color fontColor,
-    super.key,
   })  : _fontColor = fontColor,
         _temperature = temperature;
 
