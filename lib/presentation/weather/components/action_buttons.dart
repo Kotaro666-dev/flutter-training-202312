@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 class ActionButtons extends StatelessWidget {
   const ActionButtons({
+    required VoidCallback onCloseButtonPressed,
     required VoidCallback onReloadButtonPressed,
     super.key,
-  }) : _onReloadButtonPressed = onReloadButtonPressed;
+  })  : _onCloseButtonPressed = onCloseButtonPressed,
+        _onReloadButtonPressed = onReloadButtonPressed;
 
+  final VoidCallback _onCloseButtonPressed;
   final VoidCallback _onReloadButtonPressed;
 
   @override
@@ -15,9 +18,7 @@ class ActionButtons extends StatelessWidget {
       children: [
         Flexible(
           child: TextButton(
-            onPressed: () {
-              // TODO: ボタン押下時に何かする
-            },
+            onPressed: _onCloseButtonPressed,
             child: const Text('Close'),
           ),
         ),

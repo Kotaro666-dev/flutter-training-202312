@@ -39,6 +39,10 @@ class _BodyState extends State<_Body> {
   // TODO: 他のレスポンスデータも返却される際に UiState で管理するようにする
   Weather? _weather;
 
+  void _onCloseButtonPressed() {
+    Navigator.of(context).pop();
+  }
+
   Future<void> _onReloadButtonPressed() async {
     final newWeather = await _fetchWeather();
 
@@ -79,6 +83,7 @@ class _BodyState extends State<_Body> {
                     height: 80,
                   ),
                   ActionButtons(
+                    onCloseButtonPressed: _onCloseButtonPressed,
                     onReloadButtonPressed: _onReloadButtonPressed,
                   ),
                 ],
