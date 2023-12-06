@@ -10,21 +10,18 @@ part 'go_router_config.g.dart';
 final goRouterConfig = GoRouter(
   routes: $appRoutes,
   debugLogDiagnostics: kDebugMode,
+  // Note: `/` ホームディレクトリを明記しない場合には、`initialLocation` を設定する必要がある
+  initialLocation: SplashPageRoute.path,
 );
 
 @TypedGoRoute<SplashPageRoute>(
   path: SplashPageRoute.path,
-  routes: [
-    TypedGoRoute<WeatherPageRoute>(
-      path: WeatherPageRoute.path,
-    ),
-  ],
 )
 @immutable
 class SplashPageRoute extends GoRouteData {
   const SplashPageRoute();
 
-  static const path = '/';
+  static const path = '/splash';
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
@@ -32,11 +29,14 @@ class SplashPageRoute extends GoRouteData {
   }
 }
 
+@TypedGoRoute<WeatherPageRoute>(
+  path: WeatherPageRoute.path,
+)
 @immutable
 class WeatherPageRoute extends GoRouteData {
   const WeatherPageRoute();
 
-  static const path = 'weather';
+  static const path = '/weather';
 
   @override
   Widget build(BuildContext context, GoRouterState state) {

@@ -8,17 +8,12 @@ part of 'go_router_config.dart';
 
 List<RouteBase> get $appRoutes => [
       $splashPageRoute,
+      $weatherPageRoute,
     ];
 
 RouteBase get $splashPageRoute => GoRouteData.$route(
-      path: '/',
+      path: '/splash',
       factory: $SplashPageRouteExtension._fromState,
-      routes: [
-        GoRouteData.$route(
-          path: 'weather',
-          factory: $WeatherPageRouteExtension._fromState,
-        ),
-      ],
     );
 
 extension $SplashPageRouteExtension on SplashPageRoute {
@@ -26,7 +21,7 @@ extension $SplashPageRouteExtension on SplashPageRoute {
       const SplashPageRoute();
 
   String get location => GoRouteData.$location(
-        '/',
+        '/splash',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -38,6 +33,11 @@ extension $SplashPageRouteExtension on SplashPageRoute {
 
   void replace(BuildContext context) => context.replace(location);
 }
+
+RouteBase get $weatherPageRoute => GoRouteData.$route(
+      path: '/weather',
+      factory: $WeatherPageRouteExtension._fromState,
+    );
 
 extension $WeatherPageRouteExtension on WeatherPageRoute {
   static WeatherPageRoute _fromState(GoRouterState state) =>
