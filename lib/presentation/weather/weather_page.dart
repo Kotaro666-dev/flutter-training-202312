@@ -5,12 +5,11 @@ import 'package:flutter_training/domain/models/weather.dart';
 import 'package:flutter_training/domain/usecases/get_weather_use_case.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
+import 'package:go_router/go_router.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
-
-  static const routeName = '/weather';
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class _BodyState extends State<_Body> {
   Weather? _weather;
 
   void _onCloseButtonPressed() {
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   Future<void> _onReloadButtonPressed() async {
