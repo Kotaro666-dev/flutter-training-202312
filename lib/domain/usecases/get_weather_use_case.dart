@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_training/core/exceptions/exceptions.dart';
 import 'package:flutter_training/domain/models/weather.dart';
 import 'package:flutter_training/domain/repositories/weather_repository.dart';
+import 'package:flutter_training/domain/result.dart';
 
 class GetWeatherUseCase {
   GetWeatherUseCase({
@@ -10,16 +9,12 @@ class GetWeatherUseCase {
 
   final WeatherRepository _weatherRepository;
 
-  Future<Weather?> call() async {
+  Future<Result<Weather>> call() async {
     try {
-      return _weatherRepository.fetchWeather();
-    } on UnknownWeatherException catch (e) {
-      debugPrint(e.toString());
-      return null;
+      final response = await _weatherRepository.fetchWeather();
+      return Success(data: response);
     } on Exception catch (e) {
-      // TODO Session5 #6 API のエラーハンドリングを実装する
-      debugPrint(e.toString());
-      return null;
+      return Failure(exception: e);
     }
   }
 }
