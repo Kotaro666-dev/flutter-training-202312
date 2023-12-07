@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/exceptions/weather_exceptions.dart';
 import 'package:flutter_training/data/datasources/remote/weather_remote_data_source.dart';
 import 'package:flutter_training/data/repositories/weather_repository_impl.dart';
 import 'package:flutter_training/domain/models/weather.dart';
+import 'package:flutter_training/domain/result.dart';
 import 'package:flutter_training/domain/usecases/get_weather_use_case.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
@@ -50,9 +52,35 @@ class _BodyState extends State<_Body> {
     });
   }
 
-  Future<Weather?> _fetchWeather() {
+  Future<Weather?> _fetchWeather() async {
     // TODO: Session8 #9 状態管理を見直す Riverpod 導入時に移行する
-    return _getWeatherUseCase.call();
+    final result = await _getWeatherUseCase.call();
+    switch (result) {
+      case Success<Weather>():
+        return result.data;
+      case Failure<Weather>():
+        _handleError(e: result.exception);
+        return null;
+    }
+  }
+
+  void _handleError({required Exception e}) {
+    if (e is WeatherException) {
+      switch (e) {
+        case InvalidParameterException():
+        // TODO: Handle this case.
+        case UnknownWeatherException():
+        // TODO: Handle this case.
+        case NetworkException():
+        // TODO: Handle this case.
+        case UnexpectedException():
+        // TODO: Handle this case.
+        case UndefinedWeatherException():
+        // TODO: Handle this case.
+      }
+    } else {
+      // 汎用的なエラーハンドリング
+    }
   }
 
   @override
