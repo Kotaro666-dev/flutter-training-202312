@@ -13,6 +13,11 @@ sealed class SystemException extends WeatherException {
   SystemException({required this.message});
 
   final String message;
+
+  @override
+  String toString() {
+    return message;
+  }
 }
 
 class NetworkException extends SystemException {
@@ -28,6 +33,11 @@ sealed class DomainException extends WeatherException {
   DomainException({required this.message});
 
   final String message;
+
+  @override
+  String toString() {
+    return message;
+  }
 }
 
 class UndefinedWeatherException extends DomainException {
