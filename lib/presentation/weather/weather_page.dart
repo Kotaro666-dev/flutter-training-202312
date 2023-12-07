@@ -76,6 +76,7 @@ class _BodyState extends State<_Body> {
     final message = getErrorMessage(e: e);
     await showDialog<void>(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return SimpleErrorDialog(
           message: message,
