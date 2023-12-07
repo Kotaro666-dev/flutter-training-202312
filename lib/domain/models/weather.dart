@@ -1,4 +1,4 @@
-import 'package:flutter_training/core/exceptions/exceptions.dart';
+import 'package:flutter_training/core/exceptions/weather_exceptions.dart';
 
 enum Weather {
   sunny,
@@ -11,6 +11,6 @@ enum Weather {
         return value;
       }
     }
-    throw UnknownWeatherException('Unknown weather: $name');
+    throw UndefinedWeatherException(message: 'Undefined weather: $name');
   }
 }
