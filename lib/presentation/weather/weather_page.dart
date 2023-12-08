@@ -42,10 +42,7 @@ class _BodyState extends State<_Body> {
     ),
   );
 
-  WeatherUiState _uiState = const WeatherUiState(
-    minTemperature: '**',
-    maxTemperature: '**',
-  );
+  WeatherUiState _uiState = WeatherUiState.initial;
 
   void _onCloseButtonPressed() {
     context.pop();

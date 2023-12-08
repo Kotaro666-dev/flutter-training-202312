@@ -10,4 +10,9 @@ class WeatherUiState with _$WeatherUiState {
     required String maxTemperature,
     WeatherCondition? condition,
   }) = _WeatherUiState;
+
+  static const initial = WeatherUiState(
+    minTemperature: '**',
+    maxTemperature: '**',
+  );
 }
