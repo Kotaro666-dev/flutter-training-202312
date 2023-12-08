@@ -1,3 +1,4 @@
+// TODO: Session7 シリアル化する で freezed に書き直す
 class WeatherRequest {
   WeatherRequest({
     required this.area,

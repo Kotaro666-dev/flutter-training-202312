@@ -1,5 +1,4 @@
-// TODO: Session7 #8 シリアル化する
-// 対応時に json 型レスポンスから freezed で作成した WeatherResponse に変換する
+// TODO: Session7 シリアル化する で freezed に書き直す
 class WeatherResponse {
   const WeatherResponse({
     required this.weatherCondition,
