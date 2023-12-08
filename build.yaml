@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      # Ref: https://github.com/google/json_serializable.dart/tree/master/json_serializable#build-configuration
+      json_serializable:
+        options:
+          # If true, generated fromJson functions include extra checks to validate proper deserialization of types.
+          # If an exception is thrown during deserialization, a CheckedFromJsonException is thrown.
+          # Ref: https://pub.dev/documentation/json_annotation/latest/json_annotation/JsonSerializable/checked.html
+          checked: true
