@@ -4,17 +4,17 @@ import 'package:flutter_training/presentation/weather/components/weather_image.d
 
 class WeatherTemperatureDisplay extends StatelessWidget {
   const WeatherTemperatureDisplay({
-    required Weather? weather,
-    required int minTemperature,
-    required int maxTemperature,
+    required WeatherCondition? condition,
+    required String minTemperature,
+    required String maxTemperature,
     super.key,
-  })  : _weather = weather,
+  })  : _condition = condition,
         _minTemperature = minTemperature,
         _maxTemperature = maxTemperature;
 
-  final Weather? _weather;
-  final int _minTemperature;
-  final int _maxTemperature;
+  final WeatherCondition? _condition;
+  final String _minTemperature;
+  final String _maxTemperature;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class WeatherTemperatureDisplay extends StatelessWidget {
         AspectRatio(
           aspectRatio: 1,
           child: WeatherImage(
-            weather: _weather,
+            condition: _condition,
           ),
         ),
         const SizedBox(height: 16),
@@ -51,12 +51,12 @@ class WeatherTemperatureDisplay extends StatelessWidget {
 
 class _TemperatureLabel extends StatelessWidget {
   const _TemperatureLabel({
-    required int temperature,
+    required String temperature,
     required Color fontColor,
   })  : _fontColor = fontColor,
         _temperature = temperature;
 
-  final int _temperature;
+  final String _temperature;
   final Color _fontColor;
 
   @override
