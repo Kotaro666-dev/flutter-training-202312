@@ -1,23 +1,18 @@
-// TODO: Session7 シリアル化する で freezed に書き直す
-class WeatherResponse {
-  const WeatherResponse({
-    required this.weatherCondition,
-    required this.maxTemperature,
-    required this.minTemperature,
-    required this.date,
-  });
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  factory WeatherResponse.fromJson(Map<String, dynamic> json) {
-    return WeatherResponse(
-      weatherCondition: json['weather_condition'] as String?,
-      maxTemperature: json['max_temperature'] as int?,
-      minTemperature: json['min_temperature'] as int?,
-      date: json['date'] as String?,
-    );
-  }
+part 'weather_response.freezed.dart';
+part 'weather_response.g.dart';
 
-  final String? weatherCondition;
-  final int? maxTemperature;
-  final int? minTemperature;
-  final String? date;
+@freezed
+class WeatherResponse with _$WeatherResponse {
+  const factory WeatherResponse({
+    @JsonKey(name: 'weather_condition') String? weatherCondition,
+    @JsonKey(name: 'max_temperature') int? maxTemperature,
+    @JsonKey(name: 'min_temperature') int? minTemperature,
+    @JsonKey(name: 'date') String? date,
+  }) = _WeatherResponse;
+
+  factory WeatherResponse.fromJson(Map<String, dynamic> json) =>
+      _$WeatherResponseFromJson(json);
 }
