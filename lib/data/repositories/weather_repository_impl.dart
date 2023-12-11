@@ -8,8 +8,8 @@ import 'package:flutter_training/domain/models/weather.dart';
 import 'package:flutter_training/domain/repositories/weather_repository.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
-const _sampleArea = 'tokyo';
-const _sampleDate = '2020-04-01T12:00:00+09:00';
+const String _sampleArea = 'tokyo';
+final DateTime _sampleDate = DateTime.now().toLocal();
 
 class WeatherRepositoryImpl implements WeatherRepository {
   WeatherRepositoryImpl({

@@ -6,12 +6,12 @@ class WeatherRequest {
   });
 
   final String area;
-  final String date;
+  final DateTime date;
 
   Map<String, dynamic> toJson() {
     return {
       'area': area,
-      'date': date,
+      'date': date.toIso8601String(),
     };
   }
 }
