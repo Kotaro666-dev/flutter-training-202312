@@ -146,13 +146,12 @@ class _$WeatherUiStateImpl implements _WeatherUiState {
                 other.minTemperature == minTemperature) &&
             (identical(other.maxTemperature, maxTemperature) ||
                 other.maxTemperature == maxTemperature) &&
-            (identical(other.condition, condition) ||
-                other.condition == condition));
+            const DeepCollectionEquality().equals(other.condition, condition));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, minTemperature, maxTemperature, condition);
+  int get hashCode => Object.hash(runtimeType, minTemperature, maxTemperature,
+      const DeepCollectionEquality().hash(condition));
 
   @JsonKey(ignore: true)
   @override

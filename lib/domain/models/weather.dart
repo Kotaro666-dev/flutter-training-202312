@@ -1,30 +1,17 @@
-import 'package:flutter_training/core/exceptions/weather_exceptions.dart';
+// 保存時の自動整形でfoundationが消えないように警告を消している
+// ignore: unused_import, directives_ordering
+import 'package:flutter/foundation.dart';
+import 'package:flutter_training/domain/models/weather_condition.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Weather {
-  const Weather({
-    required this.condition,
-    required this.maxTemperature,
-    required this.minTemperature,
-    required this.date,
-  });
+part 'weather.freezed.dart';
 
-  final WeatherCondition condition;
-  final int maxTemperature;
-  final int minTemperature;
-  final DateTime date;
-}
-
-enum WeatherCondition {
-  sunny,
-  cloudy,
-  rainy;
-
-  factory WeatherCondition.from(String condition) {
-    for (final value in WeatherCondition.values) {
-      if (value.name == condition) {
-        return value;
-      }
-    }
-    throw UndefinedWeatherException(message: 'Undefined weather: $condition');
-  }
+@freezed
+class Weather with _$Weather {
+  const factory Weather({
+    required WeatherCondition condition,
+    required int maxTemperature,
+    required int minTemperature,
+    required DateTime date,
+  }) = _Weather;
 }
