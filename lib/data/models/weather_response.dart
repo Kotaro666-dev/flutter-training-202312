@@ -9,10 +9,10 @@ class WeatherResponse {
 
   factory WeatherResponse.fromJson(Map<String, dynamic> json) {
     return WeatherResponse(
-      weatherCondition: json['weather_condition'] as String?,
-      maxTemperature: json['max_temperature'] as int?,
-      minTemperature: json['min_temperature'] as int?,
-      date: json['date'] as String?,
+      weatherCondition: _parseStringOrNull(json['weather_condition']),
+      maxTemperature: _parseIntOrNull(json['max_temperature']),
+      minTemperature: _parseIntOrNull(json['min_temperature']),
+      date: _parseStringOrNull(json['date']),
     );
   }
 
@@ -20,4 +20,24 @@ class WeatherResponse {
   final int? maxTemperature;
   final int? minTemperature;
   final String? date;
+
+  static String? _parseStringOrNull(dynamic value) {
+    if (value is String) {
+      return value;
+    }
+    return null;
+  }
+
+  static int? _parseIntOrNull(dynamic value) {
+    if (value is int) {
+      return value;
+    } else if (value is String) {
+      try {
+        return int.parse(value);
+      } on FormatException {
+        return null;
+      }
+    }
+    return null;
+  }
 }
