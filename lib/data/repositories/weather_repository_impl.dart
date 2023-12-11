@@ -5,6 +5,7 @@ import 'package:flutter_training/data/datasources/remote/weather_remote_data_sou
 import 'package:flutter_training/data/models/weather_request.dart';
 import 'package:flutter_training/data/models/weather_response.dart';
 import 'package:flutter_training/domain/models/weather.dart';
+import 'package:flutter_training/domain/models/weather_condition.dart';
 import 'package:flutter_training/domain/repositories/weather_repository.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 

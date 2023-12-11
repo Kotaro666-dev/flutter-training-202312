@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/domain/models/weather.dart';
+import 'package:flutter_training/domain/models/weather_condition.dart';
 import 'package:flutter_training/presentation/weather/components/weather_image.dart';
 
 class WeatherTemperatureDisplay extends StatelessWidget {
