@@ -50,7 +50,6 @@ class WeatherRepositoryImpl implements WeatherRepository {
       response.weatherCondition,
       response.maxTemperature,
       response.minTemperature,
-      response.date,
     ].every((e) => e != null);
 
     if (!isValid) {
@@ -58,12 +57,10 @@ class WeatherRepositoryImpl implements WeatherRepository {
     }
 
     final condition = WeatherCondition.from(response.weatherCondition!);
-    final date = DateTime.parse(response.date!);
     return Weather(
       condition: condition,
       maxTemperature: response.maxTemperature!,
       minTemperature: response.minTemperature!,
-      date: date,
     );
   }
 }
