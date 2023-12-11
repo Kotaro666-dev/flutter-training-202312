@@ -1,15 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_training/core/exceptions/weather_exceptions.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Weather {
-  const Weather({
-    required this.condition,
-    required this.maxTemperature,
-    required this.minTemperature,
-  });
+part 'weather.freezed.dart';
 
-  final WeatherCondition condition;
-  final int maxTemperature;
-  final int minTemperature;
+@freezed
+class Weather with _$Weather {
+  const factory Weather({
+    required WeatherCondition condition,
+    required int maxTemperature,
+    required int minTemperature,
+  }) = _Weather;
 }
 
 enum WeatherCondition {
