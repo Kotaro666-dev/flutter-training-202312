@@ -59,17 +59,17 @@ class _BodyState extends State<_Body> {
       case Success<Weather>():
         setState(() {
           _uiState = _uiState.copyWith(
-            minTemperature: result.data.minTemperature.toString(),
-            maxTemperature: result.data.maxTemperature.toString(),
-            condition: result.data.condition,
+            weather: Weather(
+              condition: result.data.condition,
+              maxTemperature: result.data.maxTemperature,
+              minTemperature: result.data.minTemperature,
+            ),
           );
         });
       case Failure<Weather>():
         setState(() {
           _uiState = _uiState.copyWith(
-            minTemperature: '**',
-            maxTemperature: '**',
-            condition: null,
+            weather: null,
           );
         });
         _handleError(e: result.exception);
@@ -108,9 +108,7 @@ class _BodyState extends State<_Body> {
 
             // Middle（本ウィジェットが画面の中央に位置する）
             WeatherTemperatureDisplay(
-              condition: _uiState.condition,
-              minTemperature: _uiState.minTemperature,
-              maxTemperature: _uiState.maxTemperature,
+              weather: _uiState.weather,
             ),
 
             // Bottom
