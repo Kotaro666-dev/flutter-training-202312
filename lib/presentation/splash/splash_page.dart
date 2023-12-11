@@ -42,6 +42,6 @@ class _SplashPageState extends State<SplashPage> with AfterLayoutMixin {
     await const WeatherPageRoute().push<void>(context);
 
     // 天気画面に遷移して、戻ってきたら再度天気画面に遷移する
-    unawaited(doActioinAfterFrameCompletes());
+    unawaited(doActionAfterFrameCompletes());
   }
 }
