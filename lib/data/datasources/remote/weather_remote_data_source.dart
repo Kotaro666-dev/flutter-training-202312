@@ -3,6 +3,7 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 
 abstract class WeatherRemoteDataSource {
   Future<WeatherResponse> fetchWeather();
+  Future<WeatherResponse> fetchThrowsWeather({required String area});
 }
 
 class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
@@ -15,6 +16,14 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   @override
   Future<WeatherResponse> fetchWeather() async {
     final response = _yumemiWeather.fetchSimpleWeather();
+    return WeatherResponse.from(response: response);
+  }
+
+  @override
+  Future<WeatherResponse> fetchThrowsWeather({
+    required String area,
+  }) async {
+    final response = _yumemiWeather.fetchThrowsWeather(area);
     return WeatherResponse.from(response: response);
   }
 }

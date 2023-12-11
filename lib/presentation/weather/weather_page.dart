@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/components/simple_error_dialog.dart';
+import 'package:flutter_training/core/exceptions/error_message.dart';
 import 'package:flutter_training/data/datasources/remote/weather_remote_data_source.dart';
 import 'package:flutter_training/data/repositories/weather_repository_impl.dart';
 import 'package:flutter_training/domain/models/weather.dart';
+import 'package:flutter_training/domain/result.dart';
 import 'package:flutter_training/domain/usecases/get_weather_use_case.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
@@ -50,9 +55,34 @@ class _BodyState extends State<_Body> {
     });
   }
 
-  Future<Weather?> _fetchWeather() {
+  Future<Weather?> _fetchWeather() async {
     // TODO: Session8 #9 状態管理を見直す Riverpod 導入時に移行する
-    return _getWeatherUseCase.call();
+    final result = await _getWeatherUseCase.call();
+    switch (result) {
+      case Success<Weather>():
+        return result.data;
+      case Failure<Weather>():
+        _handleError(e: result.exception);
+        return null;
+    }
+  }
+
+  void _handleError({required Exception e}) {
+    debugPrint(e.toString());
+    unawaited(_showErrorDialog(e: e));
+  }
+
+  Future<void> _showErrorDialog({required Exception e}) async {
+    final message = getErrorMessage(e: e);
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return SimpleErrorDialog(
+          message: message,
+        );
+      },
+    );
   }
 
   @override
