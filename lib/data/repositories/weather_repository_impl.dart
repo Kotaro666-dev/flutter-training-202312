@@ -9,8 +9,8 @@ import 'package:flutter_training/domain/models/weather_condition.dart';
 import 'package:flutter_training/domain/repositories/weather_repository.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
-const _sampleArea = 'tokyo';
-const _sampleDate = '2020-04-01T12:00:00+09:00';
+const String _sampleArea = 'tokyo';
+final DateTime _sampleDate = DateTime.now().toLocal();
 
 class WeatherRepositoryImpl implements WeatherRepository {
   WeatherRepositoryImpl({
@@ -24,7 +24,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
     try {
       // Note: リクエストパラメータは固定値で渡しているが、本来はユーザーが選択した値を渡す
       final response = await _weatherRemoteDataSource.fetchWeather(
-        request: const WeatherRequest(
+        request: WeatherRequest(
           area: _sampleArea,
           date: _sampleDate,
         ),
@@ -51,7 +51,6 @@ class WeatherRepositoryImpl implements WeatherRepository {
       response.weatherCondition,
       response.maxTemperature,
       response.minTemperature,
-      response.date,
     ].every((e) => e != null);
 
     if (!isValid) {
@@ -59,12 +58,10 @@ class WeatherRepositoryImpl implements WeatherRepository {
     }
 
     final condition = WeatherCondition.from(response.weatherCondition!);
-    final date = DateTime.parse(response.date!);
     return Weather(
       condition: condition,
       maxTemperature: response.maxTemperature!,
       minTemperature: response.minTemperature!,
-      date: date,
     );
   }
 }

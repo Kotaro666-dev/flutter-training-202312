@@ -23,7 +23,7 @@ mixin _$WeatherRequest {
   @JsonKey(name: 'area')
   String get area => throw _privateConstructorUsedError;
   @JsonKey(name: 'date')
-  String get date => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +38,8 @@ abstract class $WeatherRequestCopyWith<$Res> {
       _$WeatherRequestCopyWithImpl<$Res, WeatherRequest>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'area') String area, @JsonKey(name: 'date') String date});
+      {@JsonKey(name: 'area') String area,
+      @JsonKey(name: 'date') DateTime date});
 }
 
 /// @nodoc
@@ -65,7 +66,7 @@ class _$WeatherRequestCopyWithImpl<$Res, $Val extends WeatherRequest>
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
     ) as $Val);
   }
 }
@@ -79,7 +80,8 @@ abstract class _$$WeatherRequestImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'area') String area, @JsonKey(name: 'date') String date});
+      {@JsonKey(name: 'area') String area,
+      @JsonKey(name: 'date') DateTime date});
 }
 
 /// @nodoc
@@ -104,7 +106,7 @@ class __$$WeatherRequestImplCopyWithImpl<$Res>
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
     ));
   }
 }
@@ -126,7 +128,7 @@ class _$WeatherRequestImpl
   final String area;
   @override
   @JsonKey(name: 'date')
-  final String date;
+  final DateTime date;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -173,7 +175,7 @@ class _$WeatherRequestImpl
 abstract class _WeatherRequest implements WeatherRequest {
   const factory _WeatherRequest(
           {@JsonKey(name: 'area') required final String area,
-          @JsonKey(name: 'date') required final String date}) =
+          @JsonKey(name: 'date') required final DateTime date}) =
       _$WeatherRequestImpl;
 
   factory _WeatherRequest.fromJson(Map<String, dynamic> json) =
@@ -184,7 +186,7 @@ abstract class _WeatherRequest implements WeatherRequest {
   String get area;
   @override
   @JsonKey(name: 'date')
-  String get date;
+  DateTime get date;
   @override
   @JsonKey(ignore: true)
   _$$WeatherRequestImplCopyWith<_$WeatherRequestImpl> get copyWith =>

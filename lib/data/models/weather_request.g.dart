@@ -13,7 +13,7 @@ _$WeatherRequestImpl _$$WeatherRequestImplFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = _$WeatherRequestImpl(
           area: $checkedConvert('area', (v) => v as String),
-          date: $checkedConvert('date', (v) => v as String),
+          date: $checkedConvert('date', (v) => DateTime.parse(v as String)),
         );
         return val;
       },
@@ -23,5 +23,5 @@ Map<String, dynamic> _$$WeatherRequestImplToJson(
         _$WeatherRequestImpl instance) =>
     <String, dynamic>{
       'area': instance.area,
-      'date': instance.date,
+      'date': instance.date.toIso8601String(),
     };

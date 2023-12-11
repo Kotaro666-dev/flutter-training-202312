@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/domain/models/weather_condition.dart';
+import 'package:flutter_training/domain/models/weather.dart';
 import 'package:flutter_training/presentation/weather/components/weather_image.dart';
 
 class WeatherTemperatureDisplay extends StatelessWidget {
   const WeatherTemperatureDisplay({
-    required WeatherCondition? condition,
-    required String minTemperature,
-    required String maxTemperature,
+    required Weather? weather,
     super.key,
-  })  : _condition = condition,
-        _minTemperature = minTemperature,
-        _maxTemperature = maxTemperature;
+  }) : _weather = weather;
 
-  final WeatherCondition? _condition;
-  final String _minTemperature;
-  final String _maxTemperature;
+  final Weather? _weather;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +17,7 @@ class WeatherTemperatureDisplay extends StatelessWidget {
         AspectRatio(
           aspectRatio: 1,
           child: WeatherImage(
-            condition: _condition,
+            condition: _weather?.condition,
           ),
         ),
         const SizedBox(height: 16),
@@ -31,13 +25,13 @@ class WeatherTemperatureDisplay extends StatelessWidget {
           children: [
             Expanded(
               child: _TemperatureLabel(
-                temperature: _minTemperature,
+                temperature: _weather?.minTemperature,
                 fontColor: Colors.blue,
               ),
             ),
             Expanded(
               child: _TemperatureLabel(
-                temperature: _maxTemperature,
+                temperature: _weather?.maxTemperature,
                 fontColor: Colors.red,
               ),
             ),
@@ -51,12 +45,12 @@ class WeatherTemperatureDisplay extends StatelessWidget {
 
 class _TemperatureLabel extends StatelessWidget {
   const _TemperatureLabel({
-    required String temperature,
+    required int? temperature,
     required Color fontColor,
   })  : _fontColor = fontColor,
         _temperature = temperature;
 
-  final String _temperature;
+  final int? _temperature;
   final Color _fontColor;
 
   @override
@@ -66,8 +60,9 @@ class _TemperatureLabel extends StatelessWidget {
           color: _fontColor,
         ) ??
         TextStyle(color: _fontColor);
+    final temperatureText = _temperature != null ? '$_temperature ℃' : '** ℃';
     return Text(
-      '$_temperature ℃',
+      temperatureText,
       textAlign: TextAlign.center,
       style: textStyle,
     );

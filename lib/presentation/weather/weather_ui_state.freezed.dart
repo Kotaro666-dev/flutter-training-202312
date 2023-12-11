@@ -16,9 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$WeatherUiState {
-  String get minTemperature => throw _privateConstructorUsedError;
-  String get maxTemperature => throw _privateConstructorUsedError;
-  WeatherCondition? get condition => throw _privateConstructorUsedError;
+  Weather? get weather => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WeatherUiStateCopyWith<WeatherUiState> get copyWith =>
@@ -31,10 +29,7 @@ abstract class $WeatherUiStateCopyWith<$Res> {
           WeatherUiState value, $Res Function(WeatherUiState) then) =
       _$WeatherUiStateCopyWithImpl<$Res, WeatherUiState>;
   @useResult
-  $Res call(
-      {String minTemperature,
-      String maxTemperature,
-      WeatherCondition? condition});
+  $Res call({Weather? weather});
 }
 
 /// @nodoc
@@ -50,23 +45,13 @@ class _$WeatherUiStateCopyWithImpl<$Res, $Val extends WeatherUiState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? minTemperature = null,
-    Object? maxTemperature = null,
-    Object? condition = freezed,
+    Object? weather = freezed,
   }) {
     return _then(_value.copyWith(
-      minTemperature: null == minTemperature
-          ? _value.minTemperature
-          : minTemperature // ignore: cast_nullable_to_non_nullable
-              as String,
-      maxTemperature: null == maxTemperature
-          ? _value.maxTemperature
-          : maxTemperature // ignore: cast_nullable_to_non_nullable
-              as String,
-      condition: freezed == condition
-          ? _value.condition
-          : condition // ignore: cast_nullable_to_non_nullable
-              as WeatherCondition?,
+      weather: freezed == weather
+          ? _value.weather
+          : weather // ignore: cast_nullable_to_non_nullable
+              as Weather?,
     ) as $Val);
   }
 }
@@ -79,10 +64,7 @@ abstract class _$$WeatherUiStateImplCopyWith<$Res>
       __$$WeatherUiStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String minTemperature,
-      String maxTemperature,
-      WeatherCondition? condition});
+  $Res call({Weather? weather});
 }
 
 /// @nodoc
@@ -96,23 +78,13 @@ class __$$WeatherUiStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? minTemperature = null,
-    Object? maxTemperature = null,
-    Object? condition = freezed,
+    Object? weather = freezed,
   }) {
     return _then(_$WeatherUiStateImpl(
-      minTemperature: null == minTemperature
-          ? _value.minTemperature
-          : minTemperature // ignore: cast_nullable_to_non_nullable
-              as String,
-      maxTemperature: null == maxTemperature
-          ? _value.maxTemperature
-          : maxTemperature // ignore: cast_nullable_to_non_nullable
-              as String,
-      condition: freezed == condition
-          ? _value.condition
-          : condition // ignore: cast_nullable_to_non_nullable
-              as WeatherCondition?,
+      weather: freezed == weather
+          ? _value.weather
+          : weather // ignore: cast_nullable_to_non_nullable
+              as Weather?,
     ));
   }
 }
@@ -120,21 +92,14 @@ class __$$WeatherUiStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$WeatherUiStateImpl implements _WeatherUiState {
-  const _$WeatherUiStateImpl(
-      {required this.minTemperature,
-      required this.maxTemperature,
-      this.condition});
+  const _$WeatherUiStateImpl({required this.weather});
 
   @override
-  final String minTemperature;
-  @override
-  final String maxTemperature;
-  @override
-  final WeatherCondition? condition;
+  final Weather? weather;
 
   @override
   String toString() {
-    return 'WeatherUiState(minTemperature: $minTemperature, maxTemperature: $maxTemperature, condition: $condition)';
+    return 'WeatherUiState(weather: $weather)';
   }
 
   @override
@@ -142,16 +107,12 @@ class _$WeatherUiStateImpl implements _WeatherUiState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WeatherUiStateImpl &&
-            (identical(other.minTemperature, minTemperature) ||
-                other.minTemperature == minTemperature) &&
-            (identical(other.maxTemperature, maxTemperature) ||
-                other.maxTemperature == maxTemperature) &&
-            const DeepCollectionEquality().equals(other.condition, condition));
+            const DeepCollectionEquality().equals(other.weather, weather));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, minTemperature, maxTemperature,
-      const DeepCollectionEquality().hash(condition));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(weather));
 
   @JsonKey(ignore: true)
   @override
@@ -162,17 +123,11 @@ class _$WeatherUiStateImpl implements _WeatherUiState {
 }
 
 abstract class _WeatherUiState implements WeatherUiState {
-  const factory _WeatherUiState(
-      {required final String minTemperature,
-      required final String maxTemperature,
-      final WeatherCondition? condition}) = _$WeatherUiStateImpl;
+  const factory _WeatherUiState({required final Weather? weather}) =
+      _$WeatherUiStateImpl;
 
   @override
-  String get minTemperature;
-  @override
-  String get maxTemperature;
-  @override
-  WeatherCondition? get condition;
+  Weather? get weather;
   @override
   @JsonKey(ignore: true)
   _$$WeatherUiStateImplCopyWith<_$WeatherUiStateImpl> get copyWith =>

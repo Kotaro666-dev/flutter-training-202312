@@ -19,7 +19,6 @@ mixin _$Weather {
   WeatherCondition get condition => throw _privateConstructorUsedError;
   int get maxTemperature => throw _privateConstructorUsedError;
   int get minTemperature => throw _privateConstructorUsedError;
-  DateTime get date => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WeatherCopyWith<Weather> get copyWith => throw _privateConstructorUsedError;
@@ -31,10 +30,7 @@ abstract class $WeatherCopyWith<$Res> {
       _$WeatherCopyWithImpl<$Res, Weather>;
   @useResult
   $Res call(
-      {WeatherCondition condition,
-      int maxTemperature,
-      int minTemperature,
-      DateTime date});
+      {WeatherCondition condition, int maxTemperature, int minTemperature});
 }
 
 /// @nodoc
@@ -53,7 +49,6 @@ class _$WeatherCopyWithImpl<$Res, $Val extends Weather>
     Object? condition = null,
     Object? maxTemperature = null,
     Object? minTemperature = null,
-    Object? date = null,
   }) {
     return _then(_value.copyWith(
       condition: null == condition
@@ -68,10 +63,6 @@ class _$WeatherCopyWithImpl<$Res, $Val extends Weather>
           ? _value.minTemperature
           : minTemperature // ignore: cast_nullable_to_non_nullable
               as int,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ) as $Val);
   }
 }
@@ -84,10 +75,7 @@ abstract class _$$WeatherImplCopyWith<$Res> implements $WeatherCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {WeatherCondition condition,
-      int maxTemperature,
-      int minTemperature,
-      DateTime date});
+      {WeatherCondition condition, int maxTemperature, int minTemperature});
 }
 
 /// @nodoc
@@ -104,7 +92,6 @@ class __$$WeatherImplCopyWithImpl<$Res>
     Object? condition = null,
     Object? maxTemperature = null,
     Object? minTemperature = null,
-    Object? date = null,
   }) {
     return _then(_$WeatherImpl(
       condition: null == condition
@@ -119,10 +106,6 @@ class __$$WeatherImplCopyWithImpl<$Res>
           ? _value.minTemperature
           : minTemperature // ignore: cast_nullable_to_non_nullable
               as int,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
@@ -133,8 +116,7 @@ class _$WeatherImpl with DiagnosticableTreeMixin implements _Weather {
   const _$WeatherImpl(
       {required this.condition,
       required this.maxTemperature,
-      required this.minTemperature,
-      required this.date});
+      required this.minTemperature});
 
   @override
   final WeatherCondition condition;
@@ -142,12 +124,10 @@ class _$WeatherImpl with DiagnosticableTreeMixin implements _Weather {
   final int maxTemperature;
   @override
   final int minTemperature;
-  @override
-  final DateTime date;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Weather(condition: $condition, maxTemperature: $maxTemperature, minTemperature: $minTemperature, date: $date)';
+    return 'Weather(condition: $condition, maxTemperature: $maxTemperature, minTemperature: $minTemperature)';
   }
 
   @override
@@ -157,8 +137,7 @@ class _$WeatherImpl with DiagnosticableTreeMixin implements _Weather {
       ..add(DiagnosticsProperty('type', 'Weather'))
       ..add(DiagnosticsProperty('condition', condition))
       ..add(DiagnosticsProperty('maxTemperature', maxTemperature))
-      ..add(DiagnosticsProperty('minTemperature', minTemperature))
-      ..add(DiagnosticsProperty('date', date));
+      ..add(DiagnosticsProperty('minTemperature', minTemperature));
   }
 
   @override
@@ -171,13 +150,12 @@ class _$WeatherImpl with DiagnosticableTreeMixin implements _Weather {
             (identical(other.maxTemperature, maxTemperature) ||
                 other.maxTemperature == maxTemperature) &&
             (identical(other.minTemperature, minTemperature) ||
-                other.minTemperature == minTemperature) &&
-            (identical(other.date, date) || other.date == date));
+                other.minTemperature == minTemperature));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, condition, maxTemperature, minTemperature, date);
+      Object.hash(runtimeType, condition, maxTemperature, minTemperature);
 
   @JsonKey(ignore: true)
   @override
@@ -190,8 +168,7 @@ abstract class _Weather implements Weather {
   const factory _Weather(
       {required final WeatherCondition condition,
       required final int maxTemperature,
-      required final int minTemperature,
-      required final DateTime date}) = _$WeatherImpl;
+      required final int minTemperature}) = _$WeatherImpl;
 
   @override
   WeatherCondition get condition;
@@ -199,8 +176,6 @@ abstract class _Weather implements Weather {
   int get maxTemperature;
   @override
   int get minTemperature;
-  @override
-  DateTime get date;
   @override
   @JsonKey(ignore: true)
   _$$WeatherImplCopyWith<_$WeatherImpl> get copyWith =>

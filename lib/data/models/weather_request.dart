@@ -8,7 +8,7 @@ part 'weather_request.g.dart';
 class WeatherRequest with _$WeatherRequest {
   const factory WeatherRequest({
     @JsonKey(name: 'area') required String area,
-    @JsonKey(name: 'date') required String date,
+    @JsonKey(name: 'date') required DateTime date,
   }) = _WeatherRequest;
 
   factory WeatherRequest.fromJson(Map<String, dynamic> json) =>
