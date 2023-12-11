@@ -4,6 +4,8 @@ include: package:yumemi_lints/flutter/3.16.0/recommended.yaml
 # Ref: https://pub.dev/packages/freezed#disabling-invalid_annotation_target-warning-and-warning-in-generates-files
 # If you plan on using Freezed in combination with json_serializable, recent versions of json_serializable and meta may require you to disable the invalid_annotation_target warning.
 analyzer:
+  plugins:
+    - custom_lint
   errors:
     invalid_annotation_target: ignore
   exclude: [lib/**.freezed.dart, lib/**.g.dart]
