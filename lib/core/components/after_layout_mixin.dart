@@ -9,7 +9,7 @@ mixin AfterLayoutMixin<T extends StatefulWidget> on State<T> {
     super.initState();
   }
 
-  Future<void> doActioinAfterFrameCompletes() async {
+  Future<void> doActionAfterFrameCompletes() async {
     // 画面の描写が完了することを待つ
     await WidgetsBinding.instance.endOfFrame;
 
