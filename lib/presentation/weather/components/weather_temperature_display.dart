@@ -60,7 +60,7 @@ class _TemperatureLabel extends StatelessWidget {
           color: _fontColor,
         ) ??
         TextStyle(color: _fontColor);
-    final temperatureText = _temperature != null ? '$_temperature ℃' : '** ℃';
+    final temperatureText = '${_temperature ?? '**'} ℃';
     return Text(
       temperatureText,
       textAlign: TextAlign.center,
