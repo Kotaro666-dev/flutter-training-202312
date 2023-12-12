@@ -1,16 +1,14 @@
-import 'package:flutter_training/core/exceptions/weather_exceptions.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_training/domain/models/weather_condition.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-enum Weather {
-  sunny,
-  cloudy,
-  rainy;
+part 'weather.freezed.dart';
 
-  factory Weather.fromName(String name) {
-    for (final value in Weather.values) {
-      if (value.name == name) {
-        return value;
-      }
-    }
-    throw UndefinedWeatherException(message: 'Undefined weather: $name');
-  }
+@freezed
+class Weather with _$Weather {
+  const factory Weather({
+    required WeatherCondition condition,
+    required int maxTemperature,
+    required int minTemperature,
+  }) = _Weather;
 }

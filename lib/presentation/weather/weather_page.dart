@@ -10,6 +10,7 @@ import 'package:flutter_training/domain/result.dart';
 import 'package:flutter_training/domain/usecases/get_weather_use_case.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
+import 'package:flutter_training/presentation/weather/weather_ui_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
@@ -40,30 +41,38 @@ class _BodyState extends State<_Body> {
       ),
     ),
   );
-  // TODO: 他のレスポンスデータも返却される際に UiState で管理するようにする
-  Weather? _weather;
+
+  WeatherUiState _uiState = WeatherUiState.initial;
 
   void _onCloseButtonPressed() {
     context.pop();
   }
 
   Future<void> _onReloadButtonPressed() async {
-    final newWeather = await _fetchWeather();
-
-    setState(() {
-      _weather = newWeather;
-    });
+    await _fetchWeather();
   }
 
-  Future<Weather?> _fetchWeather() async {
+  Future<void> _fetchWeather() async {
     // TODO: Session8 #9 状態管理を見直す Riverpod 導入時に移行する
     final result = await _getWeatherUseCase.call();
     switch (result) {
       case Success<Weather>():
-        return result.data;
+        setState(() {
+          _uiState = _uiState.copyWith(
+            weather: Weather(
+              condition: result.data.condition,
+              maxTemperature: result.data.maxTemperature,
+              minTemperature: result.data.minTemperature,
+            ),
+          );
+        });
       case Failure<Weather>():
+        setState(() {
+          _uiState = _uiState.copyWith(
+            weather: null,
+          );
+        });
         _handleError(e: result.exception);
-        return null;
     }
   }
 
@@ -99,9 +108,7 @@ class _BodyState extends State<_Body> {
 
             // Middle（本ウィジェットが画面の中央に位置する）
             WeatherTemperatureDisplay(
-              weather: _weather,
-              minTemperature: 10,
-              maxTemperature: 20,
+              weather: _uiState.weather,
             ),
 
             // Bottom

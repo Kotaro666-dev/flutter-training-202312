@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/core/gen/assets.gen.dart';
-import 'package:flutter_training/domain/models/weather.dart';
+import 'package:flutter_training/domain/models/weather_condition.dart';
 
 class WeatherImage extends StatelessWidget {
   const WeatherImage({
-    required Weather? weather,
+    required WeatherCondition? condition,
     super.key,
-  }) : _weather = weather;
+  }) : _condition = condition;
 
-  final Weather? _weather;
+  final WeatherCondition? _condition;
 
   @override
   Widget build(BuildContext context) {
-    if (_weather == null) {
+    if (_condition == null) {
       return const Placeholder();
     } else {
-      return _weather.svgGenImage.svg();
+      return _condition.svgGenImage.svg();
     }
   }
 }
 
-extension _WeatherSvgGenImage on Weather {
+extension _WeatherSvgGenImage on WeatherCondition {
   SvgGenImage get svgGenImage => switch (this) {
-        Weather.sunny => Assets.weather.sunny,
-        Weather.cloudy => Assets.weather.cloudy,
-        Weather.rainy => Assets.weather.rainy,
+        WeatherCondition.sunny => Assets.weather.sunny,
+        WeatherCondition.cloudy => Assets.weather.cloudy,
+        WeatherCondition.rainy => Assets.weather.rainy,
       };
 }
