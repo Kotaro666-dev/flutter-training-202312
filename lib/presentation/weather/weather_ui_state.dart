@@ -5,11 +5,7 @@ part 'weather_ui_state.freezed.dart';
 
 @freezed
 class WeatherUiState with _$WeatherUiState {
-  const factory WeatherUiState({
-    required Weather? weather,
-  }) = _WeatherUiState;
-
-  static const initial = WeatherUiState(
-    weather: null,
-  );
+  const factory WeatherUiState.initial() = _Initial;
+  const factory WeatherUiState.success({required Weather weather}) = _Success;
+  const factory WeatherUiState.error({required String message}) = _Error;
 }
