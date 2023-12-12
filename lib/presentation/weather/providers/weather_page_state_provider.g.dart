@@ -6,7 +6,7 @@ part of 'weather_page_state_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$weatherPageStateHash() => r'97de3eb29a276c35a6a5251db82a89b18c9faee3';
+String _$weatherPageStateHash() => r'7e9d8322c29f4f1b955176b5ea1e59bac433c888';
 
 /// See also [WeatherPageState].
 @ProviderFor(WeatherPageState)

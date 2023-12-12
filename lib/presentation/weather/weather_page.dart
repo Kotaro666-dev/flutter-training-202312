@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/core/components/simple_error_dialog.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
-import 'package:flutter_training/presentation/weather/weather_page_state_provider.dart';
+import 'package:flutter_training/presentation/weather/providers/weather_page_state_provider.dart';
 import 'package:flutter_training/presentation/weather/weather_ui_state.dart';
 import 'package:go_router/go_router.dart';
 
