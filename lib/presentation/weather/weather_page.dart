@@ -41,11 +41,7 @@ class _Body extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(weatherPageStateProvider);
-    final weather = state.when(
-      initial: () => null,
-      success: (weather) => weather,
-      error: (_) => null,
-    );
+    final weather = state.weatherOrNull;
 
     ref.listen<WeatherUiState>(
       weatherPageStateProvider,
