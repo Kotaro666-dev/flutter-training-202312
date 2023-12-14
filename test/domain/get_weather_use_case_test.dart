@@ -14,7 +14,8 @@ import 'get_weather_use_case_test.mocks.dart';
 
 void main() {
   ProviderContainer createContainer(
-      MockWeatherRepository mockWeatherRepository) {
+    MockWeatherRepository mockWeatherRepository,
+  ) {
     // Create a ProviderContainer, and optionally allow specifying parameters.
     final container = ProviderContainer(
       overrides: [

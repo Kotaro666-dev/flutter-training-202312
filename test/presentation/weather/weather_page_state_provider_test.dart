@@ -17,7 +17,8 @@ import 'weather_page_state_provider_test.mocks.dart';
 
 void main() {
   ProviderContainer createContainer(
-      MockWeatherRepository mockWeatherRepository) {
+    MockWeatherRepository mockWeatherRepository,
+  ) {
     // Create a ProviderContainer, and optionally allow specifying parameters.
     final container = ProviderContainer(
       overrides: [

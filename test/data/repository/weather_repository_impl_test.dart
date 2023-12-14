@@ -16,7 +16,8 @@ import 'weather_repository_impl_test.mocks.dart';
 
 void main() {
   ProviderContainer createContainer(
-      MockWeatherRemoteDataSource mockWeatherRemoteDataSource) {
+    MockWeatherRemoteDataSource mockWeatherRemoteDataSource,
+  ) {
     // Create a ProviderContainer, and optionally allow specifying parameters.
     final container = ProviderContainer(
       overrides: [
