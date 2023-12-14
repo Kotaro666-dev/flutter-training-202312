@@ -42,13 +42,16 @@ void main() {
         // arrange
         final mockWeatherRepository = MockWeatherRepository();
         final container = createContainer(mockWeatherRepository);
+        final subscription =
+            container.listen(weatherPageStateProvider, (_, __) {});
 
         // act
-        final actual = container.read(weatherPageStateProvider);
+        final actual = subscription.read();
 
         // assert
         const expected = WeatherUiState.initial();
         expect(actual, expected);
+        subscription.close();
       },
     );
 
@@ -56,6 +59,8 @@ void main() {
       // arrange
       final mockWeatherRepository = MockWeatherRepository();
       final container = createContainer(mockWeatherRepository);
+      final subscription =
+          container.listen(weatherPageStateProvider, (_, __) {});
       when(mockWeatherRepository.fetchWeather()).thenAnswer(
         (_) async => const Weather(
           condition: WeatherCondition.sunny,
@@ -66,7 +71,7 @@ void main() {
 
       // act
       await container.read(weatherPageStateProvider.notifier).fetchWeather();
-      final actual = container.read(weatherPageStateProvider);
+      final actual = subscription.read();
 
       // assert
       const expected = WeatherUiState.success(
@@ -77,18 +82,21 @@ void main() {
         ),
       );
       expect(actual, expected);
+      subscription.close();
     });
 
     test('天気情報取得に失敗した場合_天気画面の状態を失敗状態にする', () async {
       // arrange
       final mockWeatherRepository = MockWeatherRepository();
       final container = createContainer(mockWeatherRepository);
+      final subscription =
+          container.listen(weatherPageStateProvider, (_, __) {});
       when(mockWeatherRepository.fetchWeather())
           .thenThrow(UndefinedWeatherException(message: 'テスト用例外'));
 
       // act
       await container.read(weatherPageStateProvider.notifier).fetchWeather();
-      final actual = container.read(weatherPageStateProvider);
+      final actual = subscription.read();
 
       // assert
       final errorMessage =
@@ -97,6 +105,7 @@ void main() {
         message: errorMessage,
       );
       expect(actual, expected);
+      subscription.close();
     });
   });
 }
