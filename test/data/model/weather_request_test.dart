@@ -12,14 +12,14 @@ void main() {
         const dateString = '2020-04-01T12:00:00';
         final weatherRequest = WeatherRequest(
           area: 'Tokyo',
-          date: DateTime.parse(dateString).toUtc(),
+          date: DateTime.parse(dateString),
         );
 
         // act
         final actual = jsonEncode(weatherRequest.toJson());
 
         // assert
-        const expected = '{"area":"Tokyo","date":"2020-04-01T03:00:00.000Z"}';
+        const expected = '{"area":"Tokyo","date":"2020-04-01T12:00:00.000"}';
         expect(actual, expected);
       },
     );
