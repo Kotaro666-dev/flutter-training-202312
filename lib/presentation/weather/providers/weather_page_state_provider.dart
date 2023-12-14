@@ -26,9 +26,9 @@ class WeatherPageState extends _$WeatherPageState {
           ),
         );
       case Failure<Weather>():
-        final errrorMessage = getErrorMessage(e: result.exception);
+        final errorMessage = getErrorMessage(e: result.exception);
         state = WeatherUiState.error(
-          message: errrorMessage,
+          message: errorMessage,
         );
     }
   }
