@@ -12,25 +12,26 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 import 'weather_remote_data_source_impl_test.mocks.dart';
 
 void main() {
-  late MockYumemiWeather mockYumemiWeather;
-  late ProviderContainer container;
   final request = WeatherRequest(
     area: 'tokyo',
     date: DateTime.now(),
   );
 
-  setUp(
-    () => {
-      mockYumemiWeather = MockYumemiWeather(),
-      container = ProviderContainer(
-        overrides: [
-          weatherRemoteDataSourceProvider.overrideWithValue(
-            WeatherRemoteDataSourceImpl(yumemiWeather: mockYumemiWeather),
-          ),
-        ],
-      ),
-    },
-  );
+  ProviderContainer createContainer(MockYumemiWeather mockYumemiWeather) {
+    // Create a ProviderContainer, and optionally allow specifying parameters.
+    final container = ProviderContainer(
+      overrides: [
+        weatherRemoteDataSourceProvider.overrideWithValue(
+          WeatherRemoteDataSourceImpl(yumemiWeather: mockYumemiWeather),
+        ),
+      ],
+    );
+
+    // When the test ends, dispose the container.
+    addTearDown(container.dispose);
+
+    return container;
+  }
 
   group(
     'WeatherRemoteDataSourceImpl#fetchWeather(天気情報を取得する)',
@@ -39,6 +40,8 @@ void main() {
         'YumemiWeatherが正常なレスポンスを返却する場合_正常なレスポンスを返却する',
         () async {
           // arrange
+          final mockYumemiWeather = MockYumemiWeather();
+          final container = createContainer(mockYumemiWeather);
           const returnValue = '''
             {
               "weather_condition": "sunny",
@@ -72,6 +75,8 @@ void main() {
         'YumemiWeatherが不正なパラメータ例外を投げる場合_不正なパラメータ例外を投げる',
         () async {
           // arrange
+          final mockYumemiWeather = MockYumemiWeather();
+          final container = createContainer(mockYumemiWeather);
           when(
             mockYumemiWeather.fetchWeather(any),
           ).thenThrow(
@@ -93,6 +98,8 @@ void main() {
         'YumemiWeatherが不明な天気情報例外を投げる場合_不明な天気情報例外を投げる',
         () async {
           // arrange
+          final mockYumemiWeather = MockYumemiWeather();
+          final container = createContainer(mockYumemiWeather);
           when(
             mockYumemiWeather.fetchWeather(any),
           ).thenThrow(

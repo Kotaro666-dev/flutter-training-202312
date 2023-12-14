@@ -15,25 +15,28 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 import 'weather_repository_impl_test.mocks.dart';
 
 void main() {
-  late MockWeatherRemoteDataSource mockWeatherRemoteDataSource;
-  late ProviderContainer container;
+  ProviderContainer createContainer(
+      MockWeatherRemoteDataSource mockWeatherRemoteDataSource) {
+    // Create a ProviderContainer, and optionally allow specifying parameters.
+    final container = ProviderContainer(
+      overrides: [
+        weatherRemoteDataSourceProvider.overrideWithValue(
+          mockWeatherRemoteDataSource,
+        ),
+      ],
+    );
 
-  setUp(
-    () => {
-      mockWeatherRemoteDataSource = MockWeatherRemoteDataSource(),
-      container = ProviderContainer(
-        overrides: [
-          weatherRemoteDataSourceProvider.overrideWithValue(
-            mockWeatherRemoteDataSource,
-          ),
-        ],
-      ),
-    },
-  );
+    // When the test ends, dispose the container.
+    addTearDown(container.dispose);
+
+    return container;
+  }
 
   group('WeatherRepositoryImpl#fetchWeather(天気情報を取得する)', () {
     test('天気情報取得処理が正常なレスポンスを返却する場合_正常なレスポンスを返却する', () async {
       // arrange
+      final mockWeatherRemoteDataSource = MockWeatherRemoteDataSource();
+      final container = createContainer(mockWeatherRemoteDataSource);
       const returnValue = WeatherResponse(
         weatherCondition: 'sunny',
         maxTemperature: 30,
@@ -61,6 +64,8 @@ void main() {
       '天気情報取得処理が不正なパラメータ例外を投げる場合_アプリ内独自の不正なパラメータ例外を投げる',
       () async {
         // arrange
+        final mockWeatherRemoteDataSource = MockWeatherRemoteDataSource();
+        final container = createContainer(mockWeatherRemoteDataSource);
         when(
           mockWeatherRemoteDataSource.fetchWeather(
             request: anyNamed('request'),
@@ -81,6 +86,8 @@ void main() {
 
     test('天気情報取得処理が不明な天気情報例外を投げる場合_アプリ内独自の不明な天気情報例外を投げる', () async {
       // arrange
+      final mockWeatherRemoteDataSource = MockWeatherRemoteDataSource();
+      final container = createContainer(mockWeatherRemoteDataSource);
       when(
         mockWeatherRemoteDataSource.fetchWeather(
           request: anyNamed('request'),
@@ -101,6 +108,8 @@ void main() {
     test('天気情報取得処理が天気状態フィールドを欠損したレスポンスを返却する場合_ドメインクラスへのデコードに失敗し、不明な天気情報例外を投げる',
         () async {
       // arrange
+      final mockWeatherRemoteDataSource = MockWeatherRemoteDataSource();
+      final container = createContainer(mockWeatherRemoteDataSource);
       const returnValueWithoutWeatherConditionField = WeatherResponse(
         maxTemperature: 30,
         minTemperature: 20,
@@ -122,6 +131,8 @@ void main() {
     test('天気情報取得処理が最高気温フィールドを欠損したレスポンスを返却する場合_ドメインクラスへのデコードに失敗し、不明な天気情報例外を投げる',
         () async {
       // arrange
+      final mockWeatherRemoteDataSource = MockWeatherRemoteDataSource();
+      final container = createContainer(mockWeatherRemoteDataSource);
       const returnValueWithoutMaxTemperatureField = WeatherResponse(
         weatherCondition: 'sunny',
         minTemperature: 20,
@@ -143,6 +154,8 @@ void main() {
     test('天気情報取得処理が最低気温フィールドを欠損したレスポンスを返却する場合_ドメインクラスへのデコードに失敗し、不明な天気情報例外を投げる',
         () async {
       // arrange
+      final mockWeatherRemoteDataSource = MockWeatherRemoteDataSource();
+      final container = createContainer(mockWeatherRemoteDataSource);
       const returnValueWithoutMinTemperatureField = WeatherResponse(
         weatherCondition: 'sunny',
         maxTemperature: 30,
@@ -165,6 +178,8 @@ void main() {
     test('天気情報取得処理が定義されていない天気状況を含むレスポンスを返却する場合_ドメインクラスへのデコードに失敗し、不明な天気情報例外を投げる',
         () async {
       // arrange
+      final mockWeatherRemoteDataSource = MockWeatherRemoteDataSource();
+      final container = createContainer(mockWeatherRemoteDataSource);
       const returnValueWithUndefinedWeatherCondition = WeatherResponse(
         weatherCondition: 'stormy',
         maxTemperature: 30,

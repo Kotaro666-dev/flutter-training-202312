@@ -13,25 +13,28 @@ import 'package:test/test.dart';
 import 'get_weather_use_case_test.mocks.dart';
 
 void main() {
-  late MockWeatherRepository mockWeatherRepository;
-  late ProviderContainer container;
+  ProviderContainer createContainer(
+      MockWeatherRepository mockWeatherRepository) {
+    // Create a ProviderContainer, and optionally allow specifying parameters.
+    final container = ProviderContainer(
+      overrides: [
+        weatherRepositoryProvider.overrideWithValue(
+          mockWeatherRepository,
+        ),
+      ],
+    );
 
-  setUp(
-    () => {
-      mockWeatherRepository = MockWeatherRepository(),
-      container = ProviderContainer(
-        overrides: [
-          weatherRepositoryProvider.overrideWithValue(
-            mockWeatherRepository,
-          ),
-        ],
-      ),
-    },
-  );
+    // When the test ends, dispose the container.
+    addTearDown(container.dispose);
+
+    return container;
+  }
 
   group('GetWeatherUseCase#call(天気情報を取得する)', () {
     test('天気情報取得処理に成功した場合_成功結果を返却する', () async {
       // arrange
+      final mockWeatherRepository = MockWeatherRepository();
+      final container = createContainer(mockWeatherRepository);
       const returnValue = Weather(
         condition: WeatherCondition.sunny,
         maxTemperature: 30,
@@ -56,6 +59,8 @@ void main() {
 
     test('天気情報取得処理に失敗した場合_失敗結果を返却する', () async {
       // arrange
+      final mockWeatherRepository = MockWeatherRepository();
+      final container = createContainer(mockWeatherRepository);
       final exception = UndefinedWeatherException(message: 'テスト用例外');
       when(
         mockWeatherRepository.fetchWeather(),

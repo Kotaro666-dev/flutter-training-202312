@@ -16,28 +16,33 @@ import 'package:test/test.dart';
 import 'weather_page_state_provider_test.mocks.dart';
 
 void main() {
-  late MockWeatherRepository mockWeatherRepository;
-  late ProviderContainer container;
-
-  setUp(
-    () => {
-      mockWeatherRepository = MockWeatherRepository(),
-      container = ProviderContainer(
-        overrides: [
-          getWeatherUseCaseProvider.overrideWithValue(
-            GetWeatherUseCase(
-              weatherRepository: mockWeatherRepository,
-            ),
+  ProviderContainer createContainer(
+      MockWeatherRepository mockWeatherRepository) {
+    // Create a ProviderContainer, and optionally allow specifying parameters.
+    final container = ProviderContainer(
+      overrides: [
+        getWeatherUseCaseProvider.overrideWithValue(
+          GetWeatherUseCase(
+            weatherRepository: mockWeatherRepository,
           ),
-        ],
-      ),
-    },
-  );
+        ),
+      ],
+    );
+
+    // When the test ends, dispose the container.
+    addTearDown(container.dispose);
+
+    return container;
+  }
 
   group('WeatherPageState(天気画面の状態)', () {
     test(
       '天気画面の状態が生成された場合_天気画面の状態を初期状態にする',
       () {
+        // arrange
+        final mockWeatherRepository = MockWeatherRepository();
+        final container = createContainer(mockWeatherRepository);
+
         // act
         final actual = container.read(weatherPageStateProvider);
 
@@ -49,6 +54,8 @@ void main() {
 
     test('天気情報取得に成功した場合_天気画面の状態を成功状態にする', () async {
       // arrange
+      final mockWeatherRepository = MockWeatherRepository();
+      final container = createContainer(mockWeatherRepository);
       when(mockWeatherRepository.fetchWeather()).thenAnswer(
         (_) async => const Weather(
           condition: WeatherCondition.sunny,
@@ -74,6 +81,8 @@ void main() {
 
     test('天気情報取得に失敗した場合_天気画面の状態を失敗状態にする', () async {
       // arrange
+      final mockWeatherRepository = MockWeatherRepository();
+      final container = createContainer(mockWeatherRepository);
       when(mockWeatherRepository.fetchWeather())
           .thenThrow(UndefinedWeatherException(message: 'テスト用例外'));
 
