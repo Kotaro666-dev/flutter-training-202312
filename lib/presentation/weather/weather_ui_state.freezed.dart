@@ -98,8 +98,8 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
+class _$InitialImpl extends _Initial {
+  const _$InitialImpl() : super._();
 
   @override
   String toString() {
@@ -184,8 +184,9 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements WeatherUiState {
+abstract class _Initial extends WeatherUiState {
   const factory _Initial() = _$InitialImpl;
+  const _Initial._() : super._();
 }
 
 /// @nodoc
@@ -231,8 +232,8 @@ class __$$SuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl({required this.weather});
+class _$SuccessImpl extends _Success {
+  const _$SuccessImpl({required this.weather}) : super._();
 
   @override
   final Weather weather;
@@ -328,8 +329,9 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements WeatherUiState {
+abstract class _Success extends WeatherUiState {
   const factory _Success({required final Weather weather}) = _$SuccessImpl;
+  const _Success._() : super._();
 
   Weather get weather;
   @JsonKey(ignore: true)
@@ -370,8 +372,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
-  const _$ErrorImpl({required this.message});
+class _$ErrorImpl extends _Error {
+  const _$ErrorImpl({required this.message}) : super._();
 
   @override
   final String message;
@@ -467,8 +469,9 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements WeatherUiState {
+abstract class _Error extends WeatherUiState {
   const factory _Error({required final String message}) = _$ErrorImpl;
+  const _Error._() : super._();
 
   String get message;
   @JsonKey(ignore: true)
