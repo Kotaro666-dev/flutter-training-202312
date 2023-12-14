@@ -52,9 +52,9 @@ void main() {
       },
     );
 
-    test(
-        'weather_condition フィールドに文字列型ではない値を含むJSONデータをWeatherResponseにデコードする場合_例外が発生する',
-        () {
+    test('''
+        weather_condition フィールドに文字列型ではない値を含むJSONデータをWeatherResponseにデコードする場合_例外が発生する
+        ''', () {
       // arrange
       const jsonString = '''
         {
@@ -73,9 +73,9 @@ void main() {
       );
     });
 
-    test(
-        'max_temperature フィールドに整数ではない値を含むJSONデータをWeatherResponseにデコードする場合_例外が発生する',
-        () {
+    test('''
+        max_temperature フィールドに整数ではない値を含むJSONデータをWeatherResponseにデコードする場合_例外が発生する
+        ''', () {
       // arrange
       const jsonString = '''
         {
@@ -94,9 +94,9 @@ void main() {
       );
     });
 
-    test(
-        'min_temperature フィールドに整数ではない値を含むJSONデータをWeatherResponseにデコードする場合_例外が発生する',
-        () {
+    test('''
+        min_temperature フィールドに整数ではない値を含むJSONデータをWeatherResponseにデコードする場合_例外が発生する
+        ''', () {
       // arrange
       const jsonString = '''
         {
