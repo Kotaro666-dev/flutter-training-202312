@@ -1,0 +1,23 @@
+targets:
+  $default:
+    builders:
+      # Sometimes generated code does not support all of the lints specified in the target package.
+      # When using a Builder based on package:source_gen which applies combining_builder, 
+      # set the ignore_for_file option to a list of lints you wish to be ignored in all generated libraries. 
+      # Ref: https://github.com/dart-lang/source_gen?tab=readme-ov-file#configuring-combining_builder
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - type=lint
+            - duplicate_ignore
+      # Ref: https://github.com/google/json_serializable.dart/tree/master/json_serializable#build-configuration
+      json_serializable:
+        options:
+          # If true, generated fromJson functions include extra checks to validate proper deserialization of types.
+          # If an exception is thrown during deserialization, a CheckedFromJsonException is thrown.
+          # Ref: https://pub.dev/documentation/json_annotation/latest/json_annotation/JsonSerializable/checked.html
+          checked: true
+          # Values for the automatic field renaming behavior for JsonSerializable.
+          # Encodes a field named snakeCase with a JSON key snake_case.
+          # Ref: https://pub.dev/documentation/json_annotation/latest/json_annotation/FieldRename.html
+          field_rename: snake
