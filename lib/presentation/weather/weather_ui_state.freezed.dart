@@ -30,6 +30,8 @@ abstract class $WeatherUiStateCopyWith<$Res> {
       _$WeatherUiStateCopyWithImpl<$Res, WeatherUiState>;
   @useResult
   $Res call({Weather? weather});
+
+  $WeatherCopyWith<$Res>? get weather;
 }
 
 /// @nodoc
@@ -54,6 +56,18 @@ class _$WeatherUiStateCopyWithImpl<$Res, $Val extends WeatherUiState>
               as Weather?,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $WeatherCopyWith<$Res>? get weather {
+    if (_value.weather == null) {
+      return null;
+    }
+
+    return $WeatherCopyWith<$Res>(_value.weather!, (value) {
+      return _then(_value.copyWith(weather: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -65,6 +79,9 @@ abstract class _$$WeatherUiStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call({Weather? weather});
+
+  @override
+  $WeatherCopyWith<$Res>? get weather;
 }
 
 /// @nodoc
@@ -107,12 +124,11 @@ class _$WeatherUiStateImpl implements _WeatherUiState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WeatherUiStateImpl &&
-            const DeepCollectionEquality().equals(other.weather, weather));
+            (identical(other.weather, weather) || other.weather == weather));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(weather));
+  int get hashCode => Object.hash(runtimeType, weather);
 
   @JsonKey(ignore: true)
   @override
