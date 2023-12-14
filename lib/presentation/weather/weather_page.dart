@@ -1,18 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/core/components/simple_error_dialog.dart';
-import 'package:flutter_training/core/exceptions/error_message.dart';
-import 'package:flutter_training/data/datasources/remote/weather_remote_data_source.dart';
-import 'package:flutter_training/data/repositories/weather_repository_impl.dart';
-import 'package:flutter_training/domain/models/weather.dart';
-import 'package:flutter_training/domain/result.dart';
-import 'package:flutter_training/domain/usecases/get_weather_use_case.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
+import 'package:flutter_training/presentation/weather/providers/weather_page_state_provider.dart';
 import 'package:flutter_training/presentation/weather/weather_ui_state.dart';
 import 'package:go_router/go_router.dart';
-import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
@@ -25,64 +20,13 @@ class WeatherPage extends StatelessWidget {
   }
 }
 
-class _Body extends StatefulWidget {
+class _Body extends ConsumerWidget {
   const _Body();
 
-  @override
-  State<_Body> createState() => _BodyState();
-}
-
-class _BodyState extends State<_Body> {
-  // TODO: Session8 #9 状態管理を見直す Riverpod 導入時に移行する
-  final _getWeatherUseCase = GetWeatherUseCase(
-    weatherRepository: WeatherRepositoryImpl(
-      weatherRemoteDataSource: WeatherRemoteDataSourceImpl(
-        yumemiWeather: YumemiWeather(),
-      ),
-    ),
-  );
-
-  WeatherUiState _uiState = WeatherUiState.initial;
-
-  void _onCloseButtonPressed() {
-    context.pop();
-  }
-
-  Future<void> _onReloadButtonPressed() async {
-    await _fetchWeather();
-  }
-
-  Future<void> _fetchWeather() async {
-    // TODO: Session8 #9 状態管理を見直す Riverpod 導入時に移行する
-    final result = await _getWeatherUseCase.call();
-    switch (result) {
-      case Success<Weather>():
-        setState(() {
-          _uiState = _uiState.copyWith(
-            weather: Weather(
-              condition: result.data.condition,
-              maxTemperature: result.data.maxTemperature,
-              minTemperature: result.data.minTemperature,
-            ),
-          );
-        });
-      case Failure<Weather>():
-        setState(() {
-          _uiState = _uiState.copyWith(
-            weather: null,
-          );
-        });
-        _handleError(e: result.exception);
-    }
-  }
-
-  void _handleError({required Exception e}) {
-    debugPrint(e.toString());
-    unawaited(_showErrorDialog(e: e));
-  }
-
-  Future<void> _showErrorDialog({required Exception e}) async {
-    final message = getErrorMessage(e: e);
+  Future<void> _showErrorDialog({
+    required BuildContext context,
+    required String message,
+  }) async {
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -95,7 +39,28 @@ class _BodyState extends State<_Body> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(weatherPageStateProvider);
+    final weather = state.weatherOrNull;
+
+    ref.listen<WeatherUiState>(
+      weatherPageStateProvider,
+      (_, next) {
+        next.maybeWhen(
+          error: (message) {
+            unawaited(
+              _showErrorDialog(
+                context: context,
+                message: message,
+              ),
+            );
+          },
+          orElse: () {
+            // 何もしない
+          },
+        );
+      },
+    );
     return Center(
       child: FractionallySizedBox(
         widthFactor: 0.5,
@@ -108,7 +73,7 @@ class _BodyState extends State<_Body> {
 
             // Middle（本ウィジェットが画面の中央に位置する）
             WeatherTemperatureDisplay(
-              weather: _uiState.weather,
+              weather: weather,
             ),
 
             // Bottom
@@ -119,8 +84,16 @@ class _BodyState extends State<_Body> {
                     height: 80,
                   ),
                   ActionButtons(
-                    onCloseButtonPressed: _onCloseButtonPressed,
-                    onReloadButtonPressed: _onReloadButtonPressed,
+                    onCloseButtonPressed: () {
+                      context.pop();
+                    },
+                    onReloadButtonPressed: () {
+                      unawaited(
+                        ref
+                            .read(weatherPageStateProvider.notifier)
+                            .fetchWeather(),
+                      );
+                    },
                   ),
                 ],
               ),

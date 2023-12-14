@@ -5,11 +5,17 @@ part 'weather_ui_state.freezed.dart';
 
 @freezed
 class WeatherUiState with _$WeatherUiState {
-  const factory WeatherUiState({
-    required Weather? weather,
-  }) = _WeatherUiState;
+  const factory WeatherUiState.initial() = _Initial;
+  const factory WeatherUiState.success({required Weather weather}) = _Success;
+  const factory WeatherUiState.error({required String message}) = _Error;
 
-  static const initial = WeatherUiState(
-    weather: null,
-  );
+  // Note: モデル内で getter やメソッドを定義する際にプライベートな空のコンストラクタを定義する必要がある
+  // Ref: https://pub.dev/packages/freezed#adding-getters-and-methods-to-our-models
+  const WeatherUiState._();
+
+  Weather? get weatherOrNull => when(
+        initial: () => null,
+        success: (weather) => weather,
+        error: (_) => null,
+      );
 }
