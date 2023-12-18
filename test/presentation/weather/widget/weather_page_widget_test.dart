@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg_test/flutter_svg_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_training/app.dart';
 import 'package:flutter_training/core/components/simple_error_dialog.dart';
 import 'package:flutter_training/core/exceptions/error_message.dart';
 import 'package:flutter_training/core/exceptions/weather_exceptions.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_training/domain/models/weather_condition.dart';
 import 'package:flutter_training/domain/providers/weather_provider.dart';
 import 'package:flutter_training/domain/repositories/weather_repository.dart';
 import 'package:flutter_training/domain/usecases/get_weather_use_case.dart';
+import 'package:flutter_training/presentation/splash/splash_page.dart';
 import 'package:flutter_training/presentation/weather/components/action_buttons.dart';
 import 'package:flutter_training/presentation/weather/components/weather_image.dart';
 import 'package:flutter_training/presentation/weather/components/weather_temperature_display.dart';
@@ -261,5 +263,73 @@ void main() {
         getErrorMessage(e: UndefinedWeatherException(message: 'テスト用例外'));
     expect(find.byKey(simpleErrorDialogKey), findsOneWidget);
     expect(errorDialogMessageText.data, errorMessage);
+  });
+
+  testWidgets('【成功ケース】天気画面のcloseボタンを押下した場合_スプラッシュ画面が表示される',
+      (widgetTester) async {
+    // arrange
+    await initializeDeviceSurfaceSize();
+    await widgetTester.runAsync(() async {
+      // arrange
+      await widgetTester.pumpWidget(
+        const ProviderScope(
+          child: App(),
+        ),
+      );
+
+      // act/assert
+      // Note: スプラッシュ画面が表示されていることを確認する
+      expect(find.byType(SplashPage), findsOneWidget);
+      expect(find.byType(WeatherPage), findsNothing);
+
+      // Note: スプラッシュ画面から天気画面に遷移する遅延処理のタイマー（0.5秒間）を待つ
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      await widgetTester.pumpAndSettle();
+
+      // Note: 天気画面が表示されていることを確認する
+      expect(find.byType(SplashPage), findsNothing);
+      expect(find.byType(WeatherPage), findsOneWidget);
+
+      await widgetTester.tap(find.byKey(closeButtonKey));
+      await widgetTester.pumpAndSettle();
+
+      // Note: スプラッシュ画面が表示されていることを確認する
+      expect(find.byType(SplashPage), findsOneWidget);
+      expect(find.byType(WeatherPage), findsNothing);
+    });
+  });
+
+  testWidgets('【失敗ケース】天気画面のcloseボタンを押下した場合_スプラッシュ画面が表示される',
+      (widgetTester) async {
+    // arrange
+    await initializeDeviceSurfaceSize();
+    await widgetTester.pumpWidget(
+      const ProviderScope(
+        child: App(),
+      ),
+    );
+
+    // act/assert
+    // Note: スプラッシュ画面が表示されていることを確認する
+    expect(find.byType(SplashPage), findsOneWidget);
+    expect(find.byType(WeatherPage), findsNothing);
+
+    // Note: スプラッシュ画面から天気画面に遷移する遅延処理のタイマー（0.5秒間）を待つ
+    await widgetTester.pumpAndSettle(const Duration(milliseconds: 500));
+    expect(find.byType(SplashPage), findsNothing);
+    expect(find.byType(WeatherPage), findsOneWidget);
+
+    await widgetTester.tap(find.byKey(closeButtonKey));
+    await widgetTester.pumpAndSettle();
+
+    // Note: スプラッシュ画面が表示されていることを確認する
+    expect(
+      find.byType(SplashPage),
+      findsOneWidget,
+    ); // ここでエラーになる（Found 0 widgets with type "SplashPage"）
+    expect(find.byType(WeatherPage), findsNothing);
+
+    // Note: A Timer is still pending even after the widget tree was disposed. への対応
+    await widgetTester.pumpAndSettle(const Duration(milliseconds: 500));
   });
 }
