@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/core/gen/assets.gen.dart';
 import 'package:flutter_training/domain/models/weather_condition.dart';
 
+@visibleForTesting
+const placeholderImageKey = Key('placeholderImageKey');
+
 class WeatherImage extends StatelessWidget {
   const WeatherImage({
     required WeatherCondition? condition,
@@ -13,7 +16,9 @@ class WeatherImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (_condition == null) {
-      return const Placeholder();
+      return const Placeholder(
+        key: placeholderImageKey,
+      );
     } else {
       return _condition.svgGenImage.svg();
     }

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+@visibleForTesting
+const closeButtonKey = Key('closeButtonKey');
+@visibleForTesting
+const reloadButtonKey = Key('reloadButtonKey');
+
 class ActionButtons extends StatelessWidget {
   const ActionButtons({
     required VoidCallback onCloseButtonPressed,
@@ -18,12 +23,14 @@ class ActionButtons extends StatelessWidget {
       children: [
         Flexible(
           child: TextButton(
+            key: closeButtonKey,
             onPressed: _onCloseButtonPressed,
             child: const Text('Close'),
           ),
         ),
         Flexible(
           child: TextButton(
+            key: reloadButtonKey,
             onPressed: _onReloadButtonPressed,
             child: const Text('Reload'),
           ),
