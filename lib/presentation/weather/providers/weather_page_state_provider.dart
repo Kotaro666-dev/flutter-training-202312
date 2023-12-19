@@ -15,7 +15,10 @@ class WeatherPageState extends _$WeatherPageState {
   }
 
   Future<void> fetchWeather() async {
-    state = const WeatherUiState.loading();
+    final currentWeather = state.weatherOrNull;
+    state = WeatherUiState.loading(
+      weather: currentWeather,
+    );
     final result = await ref.watch(getWeatherUseCaseProvider).call();
     switch (result) {
       case Success<Weather>():
