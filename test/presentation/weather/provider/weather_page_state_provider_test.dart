@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/core/exceptions/error_message.dart';
 import 'package:flutter_training/core/exceptions/weather_exceptions.dart';
 import 'package:flutter_training/domain/models/weather.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_training/presentation/weather/providers/weather_page_sta
 import 'package:flutter_training/presentation/weather/weather_ui_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
 
 @GenerateNiceMocks([MockSpec<WeatherRepository>()])
 import 'weather_page_state_provider_test.mocks.dart';
