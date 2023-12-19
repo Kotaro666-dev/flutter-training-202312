@@ -25,4 +25,9 @@ class WeatherUiState with _$WeatherUiState {
         loading: (_) => true,
         orElse: () => false,
       );
+
+  bool get canPop => maybeWhen(
+        loading: (_) => false,
+        orElse: () => true,
+      );
 }
