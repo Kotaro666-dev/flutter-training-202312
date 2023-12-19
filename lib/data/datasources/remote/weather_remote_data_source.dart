@@ -6,6 +6,7 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 
 abstract class WeatherRemoteDataSource {
   Future<WeatherResponse> fetchWeather({required WeatherRequest request});
+  Future<WeatherResponse> syncFetchWeather({required WeatherRequest request});
 }
 
 class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
@@ -23,5 +24,15 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
     final response = _yumemiWeather.fetchWeather(jsonString);
     final jsonObject = jsonDecode(response) as Map<String, dynamic>;
     return WeatherResponse.fromJson(jsonObject);
+  }
+
+  @override
+  Future<WeatherResponse> syncFetchWeather({
+    required WeatherRequest request,
+  }) {
+    final jsonString = jsonEncode(request.toJson());
+    final response = _yumemiWeather.syncFetchWeather(jsonString);
+    final jsonObject = jsonDecode(response) as Map<String, dynamic>;
+    return Future.value(WeatherResponse.fromJson(jsonObject));
   }
 }
