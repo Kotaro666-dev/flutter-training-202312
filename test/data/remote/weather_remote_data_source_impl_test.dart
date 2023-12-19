@@ -89,7 +89,7 @@ void main() {
                 .read(weatherRemoteDataSourceProvider)
                 .fetchWeather(request: request),
             throwsA(
-              isA<YumemiWeatherError>(),
+              YumemiWeatherError.invalidParameter,
             ),
           );
         },
