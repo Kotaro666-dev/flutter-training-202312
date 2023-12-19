@@ -42,6 +42,7 @@ class _Body extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(weatherPageStateProvider);
     final weather = state.weatherOrNull;
+    final isLoading = state.isLoading;
 
     ref.listen<WeatherUiState>(
       weatherPageStateProvider,
@@ -61,46 +62,58 @@ class _Body extends ConsumerWidget {
         );
       },
     );
-    return Center(
-      child: FractionallySizedBox(
-        widthFactor: 0.5,
-        // Note: 画面を三分割して考えて、Middleの部分が中央に配置されるようにする
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Top
-            const Spacer(),
+    return Stack(
+      children: [
+        Center(
+          child: FractionallySizedBox(
+            widthFactor: 0.5,
+            // Note: 画面を三分割して考えて、Middleの部分が中央に配置されるようにする
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Top
+                const Spacer(),
 
-            // Middle（本ウィジェットが画面の中央に位置する）
-            WeatherTemperatureDisplay(
-              weather: weather,
-            ),
+                // Middle（本ウィジェットが画面の中央に位置する）
+                WeatherTemperatureDisplay(
+                  weather: weather,
+                ),
 
-            // Bottom
-            Expanded(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 80,
+                // Bottom
+                Expanded(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 80,
+                      ),
+                      ActionButtons(
+                        onCloseButtonPressed: () {
+                          context.pop();
+                        },
+                        onReloadButtonPressed: () {
+                          unawaited(
+                            ref
+                                .read(weatherPageStateProvider.notifier)
+                                .fetchWeather(),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  ActionButtons(
-                    onCloseButtonPressed: () {
-                      context.pop();
-                    },
-                    onReloadButtonPressed: () {
-                      unawaited(
-                        ref
-                            .read(weatherPageStateProvider.notifier)
-                            .fetchWeather(),
-                      );
-                    },
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        if (isLoading)
+          const ColoredBox(
+            // Note: showDialog で表示される背景色と同じ色を指定する
+            color: Colors.black54,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+      ],
     );
   }
 }

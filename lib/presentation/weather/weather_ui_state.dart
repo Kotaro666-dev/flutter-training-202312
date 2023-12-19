@@ -20,4 +20,9 @@ class WeatherUiState with _$WeatherUiState {
         success: (weather) => weather,
         error: (_) => null,
       );
+
+  bool get isLoading => maybeWhen(
+        loading: (_) => true,
+        orElse: () => false,
+      );
 }
