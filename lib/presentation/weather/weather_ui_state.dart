@@ -6,7 +6,7 @@ part 'weather_ui_state.freezed.dart';
 @freezed
 class WeatherUiState with _$WeatherUiState {
   const factory WeatherUiState.initial() = _Initial;
-  const factory WeatherUiState.loading() = _Loading;
+  const factory WeatherUiState.loading({required Weather? weather}) = _Loading;
   const factory WeatherUiState.success({required Weather weather}) = _Success;
   const factory WeatherUiState.error({required String message}) = _Error;
 
@@ -16,7 +16,7 @@ class WeatherUiState with _$WeatherUiState {
 
   Weather? get weatherOrNull => when(
         initial: () => null,
-        loading: () => null,
+        loading: (weather) => weather,
         success: (weather) => weather,
         error: (_) => null,
       );
