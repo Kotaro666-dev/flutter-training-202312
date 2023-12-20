@@ -1,5 +1,3 @@
-import 'package:flutter_training/core/exceptions/weather_exceptions.dart';
-
 enum WeatherCondition {
   sunny,
   cloudy,
@@ -11,6 +9,6 @@ enum WeatherCondition {
         return value;
       }
     }
-    throw UndefinedWeatherException(message: 'Undefined weather: $condition');
+    throw FormatException('Undefined weather: $condition');
   }
 }
