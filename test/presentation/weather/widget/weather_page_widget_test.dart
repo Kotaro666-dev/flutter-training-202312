@@ -40,12 +40,12 @@ void main() {
     );
 
     // assert
-    final minTemperatureFinder = find.byKey(minTemperatureLabelKey);
+    final minTemperatureTextFinder = find.byKey(minTemperatureLabelTextKey);
     final minTemperatureText =
-        minTemperatureFinder.evaluate().single.widget as Text;
-    final maxTemperatureFinder = find.byKey(maxTemperatureLabelKey);
+        minTemperatureTextFinder.evaluate().single.widget as Text;
+    final maxTemperatureTextFinder = find.byKey(maxTemperatureLabelTextKey);
     final maxTemperatureText =
-        maxTemperatureFinder.evaluate().single.widget as Text;
+        maxTemperatureTextFinder.evaluate().single.widget as Text;
     expect(find.byKey(placeholderImageKey), findsOneWidget);
     expect(minTemperatureText.data, '** ℃');
     expect(maxTemperatureText.data, '** ℃');
@@ -187,7 +187,7 @@ void main() {
     await widgetTester.pump();
 
     // assert
-    final finder = find.byKey(maxTemperatureLabelKey);
+    final finder = find.byKey(maxTemperatureLabelTextKey);
     final text = finder.evaluate().single.widget as Text;
     expect(text.data, '30 ℃');
   });
@@ -223,7 +223,7 @@ void main() {
     await widgetTester.pump();
 
     // assert
-    final finder = find.byKey(minTemperatureLabelKey);
+    final finder = find.byKey(minTemperatureLabelTextKey);
     final text = finder.evaluate().single.widget as Text;
     expect(text.data, '10 ℃');
   });

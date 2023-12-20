@@ -3,9 +3,9 @@ import 'package:flutter_training/domain/models/weather.dart';
 import 'package:flutter_training/presentation/weather/components/weather_image.dart';
 
 @visibleForTesting
-const minTemperatureLabelKey = Key('minTemperatureLabelKey');
+const minTemperatureLabelTextKey = Key('minTemperatureLabelTextKey');
 @visibleForTesting
-const maxTemperatureLabelKey = Key('maxTemperatureLabelKey');
+const maxTemperatureLabelTextKey = Key('maxTemperatureLabelTextKey');
 
 class WeatherTemperatureDisplay extends StatelessWidget {
   const WeatherTemperatureDisplay({
@@ -30,14 +30,14 @@ class WeatherTemperatureDisplay extends StatelessWidget {
           children: [
             Expanded(
               child: _TemperatureLabel(
-                key: minTemperatureLabelKey,
+                labelTextKey: minTemperatureLabelTextKey,
                 temperature: _weather?.minTemperature,
                 fontColor: Colors.blue,
               ),
             ),
             Expanded(
               child: _TemperatureLabel(
-                key: maxTemperatureLabelKey,
+                labelTextKey: maxTemperatureLabelTextKey,
                 temperature: _weather?.maxTemperature,
                 fontColor: Colors.red,
               ),
@@ -52,14 +52,14 @@ class WeatherTemperatureDisplay extends StatelessWidget {
 
 class _TemperatureLabel extends StatelessWidget {
   const _TemperatureLabel({
-    required Key key,
+    required Key labelTextKey,
     required int? temperature,
     required Color fontColor,
-  })  : _key = key,
+  })  : _labelTextKey = labelTextKey,
         _fontColor = fontColor,
         _temperature = temperature;
 
-  final Key _key;
+  final Key _labelTextKey;
   final int? _temperature;
   final Color _fontColor;
 
@@ -73,7 +73,7 @@ class _TemperatureLabel extends StatelessWidget {
     final temperatureText = _temperature != null ? '$_temperature ℃' : '** ℃';
     return Text(
       temperatureText,
-      key: _key,
+      key: _labelTextKey,
       textAlign: TextAlign.center,
       style: textStyle,
     );
