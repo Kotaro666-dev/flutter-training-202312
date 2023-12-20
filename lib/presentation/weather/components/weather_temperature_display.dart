@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/domain/models/weather.dart';
 import 'package:flutter_training/presentation/weather/components/weather_image.dart';
 
+@visibleForTesting
+const minTemperatureLabelTextKey = Key('minTemperatureLabelTextKey');
+@visibleForTesting
+const maxTemperatureLabelTextKey = Key('maxTemperatureLabelTextKey');
+
 class WeatherTemperatureDisplay extends StatelessWidget {
   const WeatherTemperatureDisplay({
     required Weather? weather,
@@ -25,12 +30,14 @@ class WeatherTemperatureDisplay extends StatelessWidget {
           children: [
             Expanded(
               child: _TemperatureLabel(
+                labelTextKey: minTemperatureLabelTextKey,
                 temperature: _weather?.minTemperature,
                 fontColor: Colors.blue,
               ),
             ),
             Expanded(
               child: _TemperatureLabel(
+                labelTextKey: maxTemperatureLabelTextKey,
                 temperature: _weather?.maxTemperature,
                 fontColor: Colors.red,
               ),
@@ -45,11 +52,14 @@ class WeatherTemperatureDisplay extends StatelessWidget {
 
 class _TemperatureLabel extends StatelessWidget {
   const _TemperatureLabel({
+    required Key labelTextKey,
     required int? temperature,
     required Color fontColor,
-  })  : _fontColor = fontColor,
+  })  : _labelTextKey = labelTextKey,
+        _fontColor = fontColor,
         _temperature = temperature;
 
+  final Key _labelTextKey;
   final int? _temperature;
   final Color _fontColor;
 
@@ -63,6 +73,7 @@ class _TemperatureLabel extends StatelessWidget {
     final temperatureText = '${_temperature ?? '**'} ℃';
     return Text(
       temperatureText,
+      key: _labelTextKey,
       textAlign: TextAlign.center,
       style: textStyle,
     );

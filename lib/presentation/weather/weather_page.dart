@@ -9,11 +9,11 @@ import 'package:flutter_training/presentation/weather/providers/weather_page_sta
 import 'package:flutter_training/presentation/weather/weather_ui_state.dart';
 import 'package:go_router/go_router.dart';
 
-class WeatherPage extends StatelessWidget {
+class WeatherPage extends ConsumerWidget {
   const WeatherPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return const Scaffold(
       body: _Body(),
     );
