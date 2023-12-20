@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/data/models/weather_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:test/test.dart';
 
 void main() {
   group('WeatherResponse#fromJson', () {

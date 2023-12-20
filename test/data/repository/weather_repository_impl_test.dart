@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/core/exceptions/weather_exceptions.dart';
 import 'package:flutter_training/data/datasources/remote/weather_remote_data_source.dart';
 import 'package:flutter_training/data/models/weather_response.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_training/domain/models/weather_condition.dart';
 import 'package:flutter_training/domain/providers/weather_provider.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 @GenerateNiceMocks([MockSpec<WeatherRemoteDataSource>()])
