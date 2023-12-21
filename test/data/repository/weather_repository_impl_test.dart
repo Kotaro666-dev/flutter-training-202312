@@ -45,7 +45,9 @@ void main() {
         date: '2020-04-01T12:00:00+09:00',
       );
       when(
-        mockWeatherRemoteDataSource.fetchWeather(request: anyNamed('request')),
+        mockWeatherRemoteDataSource.syncFetchWeather(
+          request: anyNamed('request'),
+        ),
       ).thenAnswer((_) async => returnValue);
 
       // act
@@ -68,7 +70,7 @@ void main() {
         final mockWeatherRemoteDataSource = MockWeatherRemoteDataSource();
         final container = createContainer(mockWeatherRemoteDataSource);
         when(
-          mockWeatherRemoteDataSource.fetchWeather(
+          mockWeatherRemoteDataSource.syncFetchWeather(
             request: anyNamed('request'),
           ),
         ).thenThrow(
@@ -90,7 +92,7 @@ void main() {
       final mockWeatherRemoteDataSource = MockWeatherRemoteDataSource();
       final container = createContainer(mockWeatherRemoteDataSource);
       when(
-        mockWeatherRemoteDataSource.fetchWeather(
+        mockWeatherRemoteDataSource.syncFetchWeather(
           request: anyNamed('request'),
         ),
       ).thenThrow(
@@ -117,7 +119,9 @@ void main() {
         date: '2020-04-01T12:00:00+09:00',
       );
       when(
-        mockWeatherRemoteDataSource.fetchWeather(request: anyNamed('request')),
+        mockWeatherRemoteDataSource.syncFetchWeather(
+          request: anyNamed('request'),
+        ),
       ).thenAnswer((_) async => returnValueWithoutWeatherConditionField);
 
       // act/assert
@@ -140,7 +144,9 @@ void main() {
         date: '2020-04-01T12:00:00+09:00',
       );
       when(
-        mockWeatherRemoteDataSource.fetchWeather(request: anyNamed('request')),
+        mockWeatherRemoteDataSource.syncFetchWeather(
+          request: anyNamed('request'),
+        ),
       ).thenAnswer((_) async => returnValueWithoutMaxTemperatureField);
 
       // act/assert
@@ -164,7 +170,9 @@ void main() {
       );
 
       when(
-        mockWeatherRemoteDataSource.fetchWeather(request: anyNamed('request')),
+        mockWeatherRemoteDataSource.syncFetchWeather(
+          request: anyNamed('request'),
+        ),
       ).thenAnswer((_) async => returnValueWithoutMinTemperatureField);
 
       // act/assert
@@ -189,7 +197,9 @@ void main() {
       );
 
       when(
-        mockWeatherRemoteDataSource.fetchWeather(request: anyNamed('request')),
+        mockWeatherRemoteDataSource.syncFetchWeather(
+          request: anyNamed('request'),
+        ),
       ).thenAnswer((_) async => returnValueWithUndefinedWeatherCondition);
 
       // act/assert

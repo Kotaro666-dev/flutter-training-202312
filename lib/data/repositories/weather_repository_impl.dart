@@ -23,7 +23,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
   Future<Weather> fetchWeather() async {
     try {
       // Note: リクエストパラメータは固定値で渡しているが、本来はユーザーが選択した値を渡す
-      final response = await _weatherRemoteDataSource.fetchWeather(
+      final response = await _weatherRemoteDataSource.syncFetchWeather(
         request: WeatherRequest(
           area: _sampleArea,
           date: _sampleDate,

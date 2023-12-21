@@ -68,4 +68,33 @@ class MockWeatherRemoteDataSource extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.WeatherResponse>);
+
+  @override
+  _i4.Future<_i2.WeatherResponse> syncFetchWeather(
+          {required _i5.WeatherRequest? request}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #syncFetchWeather,
+          [],
+          {#request: request},
+        ),
+        returnValue:
+            _i4.Future<_i2.WeatherResponse>.value(_FakeWeatherResponse_0(
+          this,
+          Invocation.method(
+            #syncFetchWeather,
+            [],
+            {#request: request},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.WeatherResponse>.value(_FakeWeatherResponse_0(
+          this,
+          Invocation.method(
+            #syncFetchWeather,
+            [],
+            {#request: request},
+          ),
+        )),
+      ) as _i4.Future<_i2.WeatherResponse>);
 }
