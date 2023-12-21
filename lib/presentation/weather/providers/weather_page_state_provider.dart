@@ -15,6 +15,10 @@ class WeatherPageState extends _$WeatherPageState {
   }
 
   Future<void> fetchWeather() async {
+    if (state.isLoading) {
+      return;
+    }
+
     final currentWeather = state.weatherOrNull;
     state = WeatherUiState.loading(
       weather: currentWeather,
